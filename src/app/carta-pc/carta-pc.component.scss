@@ -1,0 +1,239 @@
+$primary-color: #2E4756;  // Azul fondo
+$secondary-color: #ECFEAA;  // Amarillo
+$accent-color: #00A896;  // Azul botones
+$final-color: #7E998A;  // Azul footer
+$button-hover-color: #e5ff7c;
+$titulo-azul-color: #287DAF;
+$input-color: #E1EAC1;
+$darker-primary-color: #203947;
+$alerta-color: #ff0000;
+
+body {
+  margin: 0px;
+  min-height: 90vh;
+  width: 100%;
+  background-color: $primary-color;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $accent-color $final-color;
+
+  margin: 0;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: white;
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 7vw;
+  background-color: $primary-color;
+  position: fixed;
+  top: 0;
+  max-height: 50%;
+  -webkit-box-shadow: 3px 16px 20px 16px $primary-color;
+  -moz-box-shadow: 3px 16px 20px 16px $primary-color;
+  box-shadow: 3px 16px 20px 16px $primary-color;
+}
+
+#contenedor-header {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#marca {
+  margin-right: auto;
+  font-family: "FontFarfalla", sans-serif;
+  font-size: 42px;
+  font-weight: bold;
+}
+
+#titulo {
+  margin: 0 auto;
+  font-size: 28px;
+  color: $secondary-color;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
+#botones-seccion {
+  margin-left: auto;
+  display: flex;
+  gap: 20px
+}
+
+.boton {
+  border: none;
+  border-radius: 15px;
+  background: none;
+  font-size: 16px;
+  color: white;
+}
+
+#sin-gluten {
+  background-color: $secondary-color;
+  color: black;
+  padding: 5px 10px;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  transition: all 0.3s ease-in-out;
+}
+
+#sin-gluten:hover {
+  background-color: $button-hover-color;
+  cursor: pointer;
+}
+
+#sin-gluten:active {
+  background-color: $accent-color;
+}
+
+.boton:hover {
+  cursor: pointer;
+  transform: scale(1.3)
+}
+
+#sin-gluten:hover {
+  transform: scale(1)
+}
+
+#secciones {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 5vw;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: auto;
+  max-width: 100%;
+  padding-bottom: 20px;
+}
+
+.elemento-seccion {
+  min-width: 70px;
+  margin-bottom: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.elemento-seccion:hover {
+  cursor: pointer;
+}
+
+.selected {
+  background: rgba(236, 254, 170, 0.1);
+  border-radius: 15px;
+}
+
+.texto-seccion {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.imagen-seccion {
+  margin-top: 0;
+  width: 100%;
+  min-width: 70px;
+}
+
+#contenido {
+  padding: 0 10vw 5vw;
+  background-color: $primary-color;
+  min-height: 100%;
+}
+
+.contenido-menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit ,minmax(400px, 1fr ));
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.menu {
+  max-width: 500px;
+  min-height: 200px;
+  background: $secondary-color;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0px auto auto auto;
+  padding: 10px 20px 10px;
+}
+
+.contenido-texto-menu {
+  display: flex;
+  flex-direction: row;
+}
+
+.menu * {
+  color: black
+}
+
+.titulo-menu {
+  font-size: 32px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.plato-menu, .precio-plato {
+  font-size: 16px;
+  justify-content: center;
+  text-align: center;
+}
+
+li {
+  list-style: none;
+  margin-bottom: 15px;
+}
+
+ul {
+  padding: 0
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 800px){
+  #marca {
+    display: none;
+  }
+
+  #botones-seccion {
+    margin-right: 50px;
+  }
+}
+
+@media (max-width: 440px){
+  header {
+    padding-top: 50px
+  }
+
+  #botones-seccion {
+    margin-right: auto;
+  }
+
+  .contenido-menu {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}

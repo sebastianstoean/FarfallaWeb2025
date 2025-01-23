@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { CartaPcComponent } from './carta-pc/carta-pc.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CartaPcComponent,
-    PrivacyComponent
+    PrivacyComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

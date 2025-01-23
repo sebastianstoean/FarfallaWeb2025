@@ -1,1 +1,67 @@
-<p>carta-pc works!</p>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Document</title>
+</head>
+<body>
+<!-- carta-pc.component.html -->
+<header #header>
+  <div id="contenedor-header">
+    <h1 id="marca" #marca>Il Piccolino della Farfalla</h1>
+    <div id="botones-seccion">
+      <button class="boton" id="sin-gluten" (click)="toggleSinGluten()">{{texts_carta.botones[0]}}</button>
+      <button id="inicio" class="boton" (click)="goToHome()">{{texts_carta.botones[1]}}</button>
+      <button class="boton" id="reservar" (click)="goToReservas()">{{texts_carta.botones[2]}}</button>
+    </div>
+  </div>
+  <h2 id="titulo">{{texts_carta.titulo}}</h2>
+  <div id="secciones">
+    <div class="elemento-seccion" *ngFor="let titulo of texts_carta.titulos; let i = index"
+         (click)="changeSection(titulo)" [ngClass]="getClassName(titulo)">
+      <img [src]="'../../assets/icons/icono' + (i + 1) + '.png'" alt="" class="imagen-seccion">
+      <p class="texto-seccion">{{titulo}}</p>
+    </div>
+  </div>
+</header>
+
+<<section id="contenido" #contenido>
+  <div class="contenido-menu" *ngFor="let section of menuSections">
+    <ng-container *ngIf="!isPyBSection(section.key); else pybTemplate">
+      <div *ngFor="let item of section.items"
+           class="menu hidden"
+           [ngClass]="'menu-' + section.key.toLowerCase()">
+        <h2 class="titulo-menu">{{ item.titulo }}</h2>
+        <div class="contenido-texto-menu">
+          <ul class="lista-platos">
+            <li *ngFor="let plato of item.texto; let i = index" class="plato-menu">
+              {{ plato }} <br>
+              <p class="precio-plato" *ngIf="!isSalsas(item.titulo)">{{ item.precio[i] }}€</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #pybTemplate>
+      <div *ngFor="let item of section.items"
+           class="menu hidden"
+           [ngClass]="'menu-pyb'">
+        <h2 class="titulo-menu">{{ item.titulo }}</h2>
+        <div class="contenido-texto-menu">
+          <ul class="lista-platos">
+            <li *ngFor="let plato of item.texto; let i = index" class="plato-menu">
+              {{ plato }} <span class="precio-plato">{{ item.precio[i] }}€</span>
+            </li>
+          </ul>
+        </div>
+        <p class="texto-especial-menu">{{ item.especial }}</p>
+      </div>
+    </ng-template>
+  </div>
+</section>
+
+</body>
+
+</html>

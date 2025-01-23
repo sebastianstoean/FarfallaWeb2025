@@ -1,11 +1,6 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Document</title>
-</head>
-<body>
+<router-outlet></router-outlet>
+
+
 <div class="popup" id="cambio-idioma" #cambioIdioma>
   <span class="boton-cerrar" (click)="closeLanguageChanger()">x</span>
   <p (click)="changeLanguage('ES')" [class.disabled]="language === 'ES'">ES</p>
@@ -15,167 +10,15 @@
   <p (click)="changeLanguage('FR')" [class.disabled]="language === 'FR'">FR</p>
 </div>
 <header>
-  <img src="../assets/images/logo.jpg" alt="" id="logo" class="item-header">
+  <img src="../assets/icons/logo.png" alt="" id="logo" class="item-header">
   <div id="cont-idioma" class="item-header">
     <p class="item-idioma" id="texto-idioma" #openPopup1 (click)="openLanguageChanger()">{{language}}</p>
     <img src="../assets/icons/idiomas.png" #openPopup2 alt="" id="boton-idioma" class="item-idioma" (click)="openLanguageChanger()">
   </div>
 </header>
 
-<section id="inicio">
-  <img src="../assets/images/inicio.png" alt="" id="fondo-inicio">
-  <h1 id="titulo-principal" class="titulo-principal">
-    Il Piccolino della Farfalla
-  </h1>
-  <h2 id="subtitulo-principal" class="titulo-principal">
-    {{ texts_home.titulos[0] }}
-  </h2>
-  <div id="botones-inicio">
-    <button class="boton-inicio" id="boton1-inicio">
-      {{ texts_home.botones[0] }}
-    </button>
-    <button class="boton-inicio" id="boton2-inicio" (click) = "goToReservas()">
-      {{ texts_home.botones[1] }}
-    </button>
-  </div>
-  <div id="cont-flecha">
-    <img src="../assets/icons/flecha_bajada_w.png" alt="" id="flecha-bajada">
-  </div>
-</section>
-
-<section id="bienvenida" class="secciones-texto">
-  <h2 id="titulo-bienvenida">{{ texts_home.titulos[1] }}</h2>
-  <h3 id="titulo-bienvenida2">{{ texts_home.titulos[2] }}</h3>
-  <p id="texto-bienvenida">{{ texts_home.textos[0] }}</p>
-  <img src="../assets/images/foto_bienvenida.jpg" alt="" id="imagen-bienvenida" class="imagen-texto">
-</section>
-
-<section id="a-medida" class="secciones-texto">
-  <h2 id="titulo-a-medida">{{ texts_home.titulos[3] }}</h2>
-  <p id="texto-a-medida" [innerHTML]="texts_home.textos[1]"></p>
-  <img src="../assets/images/foto_a_medida.jpg" alt="" id="imagen-a-medida" class="imagen-texto">
-</section>
-
-<section id="carta">
-  <h2 id="titulo-carta">{{ texts_home.titulos[4] }}</h2>
-  <div id="iconos-carta">
-    <div class="contenedor-icono-carta" id="cont1">
-      <img src="../assets/icons/icono1.png" alt="" class="icono-carta" id="icono1-carta">
-      <div class="contenedor-boton-carta">
-        <button class="boton-icono-carta" id="boton-icono1">{{ texts_home.carta[0] }}</button>
-      </div>
-      <p *ngIf="is_mobile" class="nombre-carta">{{ texts_home.carta[0] }}</p>
-    </div>
-    <div class="contenedor-icono-carta" id="cont2">
-      <img src="../assets/icons/icono2.png" alt="" class="icono-carta" id="icono2-carta">
-      <div class="contenedor-boton-carta">
-        <button class="boton-icono-carta" id="boton-icono2">{{ texts_home.carta[1] }}</button>
-      </div>
-      <p *ngIf="is_mobile" class="nombre-carta">{{ texts_home.carta[1] }}</p>
-    </div>
-    <div class="contenedor-icono-carta" id="cont3">
-      <img src="../assets/icons/icono3.png" alt="" class="icono-carta" id="icono3-carta">
-      <div class="contenedor-boton-carta">
-        <button class="boton-icono-carta" id="boton-icono3">{{ texts_home.carta[2] }}</button>
-      </div>
-      <p *ngIf="is_mobile" class="nombre-carta">{{ texts_home.carta[2] }}</p>
-    </div>
-    <div class="contenedor-icono-carta" id="cont4">
-      <img src="../assets/icons/icono4.png" alt="" class="icono-carta" id="icono4-carta">
-      <div class="contenedor-boton-carta">
-        <button class="boton-icono-carta" id="boton-icono4">{{ texts_home.carta[3] }}</button>
-      </div>
-      <p *ngIf="is_mobile" class="nombre-carta">{{ texts_home.carta[3] }}</p>
-    </div>
-    <div class="contenedor-icono-carta" id="cont5">
-      <img src="../assets/icons/icono5.png" alt="" class="icono-carta" id="icono5-carta">
-      <div class="contenedor-boton-carta">
-        <button class="boton-icono-carta" id="boton-icono5">{{ texts_home.carta[4] }}</button>
-      </div>
-      <p *ngIf="is_mobile" class="nombre-carta">{{ texts_home.carta[4] }}</p>
-    </div>
-  </div>
-</section>
-
-<section id="venir" #seccionReservas>
-  <div id="contenido-venir">
-    <h2 id="titulo-venir">{{ texts_home.titulos[5] }}</h2>
-    <div id="contenedor-horario-reservas">
-      <div id="horario">
-        <div id="contenedor-texto-horario">
-          <h3 id="titulo-horario">{{ texts_home.titulos[6] }}</h3>
-          <p id="texto1-horario" [innerHTML]="texts_home.horario[0]"></p>
-          <p id="texto2-horario" [innerHTML]="texts_home.horario[1]"></p>
-          <p id="texto3-horario" [innerHTML]="texts_home.horario[2]"></p>
-          <p id="texto4-horario" [innerHTML]="texts_home.horario[3]"></p>
-          <p id="texto5-horario" [innerHTML]="texts_home.horario[4]"></p>
-        </div>
-      </div>
-      <div id="reservas">
-        <h3 id="titulo-reservas">{{ texts_home.titulos[7] }}</h3>
-        <form [formGroup]="formulario_reservas" (ngSubmit)="enviarReserva()" id="formulario-reservas">
-          <!-- Nombre -->
-          <label for="formulario-nombre" class="label-formulario">{{ texts_home.formulario[0] }}:</label>
-          <input class="input-formulario" type="text" formControlName="nombre" id="formulario-nombre" placeholder="..." maxlength="40">
-
-          <!-- Teléfono -->
-          <label for="formulario-telefono" class="label-formulario">{{ texts_home.formulario[1] }}:</label>
-          <input class="input-formulario" type="tel" formControlName="tel" id="formulario-telefono" placeholder="..." maxlength="9">
-
-          <!-- Fecha -->
-          <label for="formulario-fecha" class="label-formulario">{{ texts_home.formulario[2] }}:</label>
-          <input formControlName="fecha" class="input-formulario" type="date" id="formulario-fecha" (change)="cambiarHorasConstraints()" [value]="fecha_hoy" [min]="fecha_hoy" [max]="fin_de_anno">
-
-          <div id="formulario-pequeñas">
-            <!-- Hora -->
-            <label for="formulario-hora" class="label-formulario">{{ texts_home.formulario[3] }}:</label>
-            <input formControlName="hora" class="input-formulario" type="time" id="formulario-hora">
-
-            <!-- Personas -->
-            <label for="formulario-personas" class="label-formulario" id="label-personas">{{ texts_home.formulario[4] }}:</label>
-            <input formControlName="personas" class="input-formulario" type="number" id="formulario-personas" inputmode="numeric" min="1" max="30">
-          </div>
-
-          <!-- Política -->
-          <label class="control control-checkbox" id="label-politica" #checkboxLabel>{{ texts_home.formulario[5] }}
-            <input formControlName="politica" type="checkbox" #checkbox/>
-            <div class="control_indicator" #checkboxControl></div>
-          </label>
-
-          <!-- Botón -->
-          <button type="submit" id="enviar-formulario" [class.disabled]="formulario_reservas.invalid">{{ texts_home.formulario[6] }}</button>
-
-          <div *ngIf="(formulario_reservas.get('nombre')?.touched || reserva_intentada) && formulario_reservas.get('nombre')?.invalid">
-            <span *ngIf="formulario_reservas.get('nombre')?.hasError('required')">*{{ texts_home.errores[0] }}</span>
-            <span *ngIf="formulario_reservas.get('nombre')?.hasError('pattern')">*{{ texts_home.errores[1] }}</span>
-          </div>
-          <div *ngIf="(formulario_reservas.get('tel')?.touched || reserva_intentada) && formulario_reservas.get('tel')?.invalid">
-            <span *ngIf="formulario_reservas.get('tel')?.hasError('required')">*{{ texts_home.errores[2] }}</span>
-            <span *ngIf="formulario_reservas.get('tel')?.hasError('pattern')">*{{ texts_home.errores[3] }}</span>
-          </div>
-          <div *ngIf="(formulario_reservas.get('fecha')?.touched || reserva_intentada) && formulario_reservas.get('fecha')?.invalid">
-            <span *ngIf="formulario_reservas.get('fecha')?.hasError('required')">*{{ texts_home.errores[4] }}</span>
-          </div>
-          <div *ngIf="(formulario_reservas.get('hora')?.touched || reserva_intentada) && formulario_reservas.get('hora')?.invalid">
-            <span *ngIf="formulario_reservas.get('hora')?.hasError('required')">*{{ texts_home.errores[5] }}</span>
-            <span *ngIf="formulario_reservas.get('hora')?.hasError('invalidTime')">*{{ texts_home.errores[6] }} {{ hora_min }} {{ texts_home.errores[7] }} {{ hora_max }}</span>
-          </div>
-          <div *ngIf="(formulario_reservas.get('personas')?.touched || reserva_intentada) && formulario_reservas.get('personas')?.invalid">
-            <span *ngIf="formulario_reservas.get('personas')?.hasError('required')">*{{ texts_home.errores[8] }}</span>
-            <span *ngIf="formulario_reservas.get('personas')?.hasError('min')">*{{ texts_home.errores[9] }}</span>
-            <span *ngIf="formulario_reservas.get('personas')?.hasError('max')">*{{ texts_home.errores[10] }}</span>
-          </div>
-          <div *ngIf="reserva_intentada && formulario_reservas.get('politica')?.invalid">
-            <span>*{{ texts_home.errores[11] }}</span>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
 <footer>
-  <p>{{ texts_home.footer }}: 913684391 <br>
+  <p>Tel.: 913684391 <br>
     Calle de las Huertas 6 <br>
     28012, Madrid
   </p>
@@ -185,7 +28,6 @@
     <img src="../assets/icons/maps.png" alt="" id="icono3-footer" class="icono-footer">
   </div>
 </footer>
-</body>
-</html>
+
 
 
