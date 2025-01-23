@@ -47,7 +47,9 @@
   <div id="iconos-carta">
     <div *ngFor="let item of texts_home.carta; let i = index"
          class="contenedor-icono-carta"
-         [id]="'cont' + (i + 1)">
+         [id]="'cont' + (i + 1)"
+         (click)="goToCartaWithSelection(i)"
+    >
       <img [src]="'../assets/icons/icono' + (i + 1) + '.png'"
            alt=""
            class="icono-carta"
@@ -61,7 +63,7 @@
   </div>
 </section>
 
-<section id="venir" #seccionReservas>
+<section id="venir">
   <div id="contenido-venir">
     <h2 id="titulo-venir">{{ texts_home.titulos[5] }}</h2>
     <div id="contenedor-horario-reservas">
@@ -71,20 +73,19 @@
           <p id="texto1-horario" [innerHTML]="texts_home.horario[0]"></p>
           <p id="texto2-horario" [innerHTML]="texts_home.horario[1]"></p>
           <p id="texto3-horario" [innerHTML]="texts_home.horario[2]"></p>
-          <p id="texto4-horario" [innerHTML]="texts_home.horario[3]"></p>
-          <p id="texto5-horario" [innerHTML]="texts_home.horario[4]"></p>
+          <p id="texto5-horario" [innerHTML]="texts_home.horario[3]"></p>
         </div>
       </div>
-      <div id="reservas">
+      <div id="reservas" #seccionReservas>
         <h3 id="titulo-reservas">{{ texts_home.titulos[7] }}</h3>
         <form [formGroup]="formulario_reservas" (ngSubmit)="enviarReserva()" id="formulario-reservas">
           <!-- Nombre -->
           <label for="formulario-nombre" class="label-formulario">{{ texts_home.formulario[0] }}:</label>
-          <input class="input-formulario" type="text" formControlName="nombre" id="formulario-nombre" placeholder="..." maxlength="40">
+          <input class="input-formulario" type="text" formControlName="nombre" id="formulario-nombre" placeholder="ej: María" maxlength="40">
 
           <!-- Teléfono -->
           <label for="formulario-telefono" class="label-formulario">{{ texts_home.formulario[1] }}:</label>
-          <input class="input-formulario" type="tel" formControlName="tel" id="formulario-telefono" placeholder="..." maxlength="9">
+          <input class="input-formulario" type="tel" formControlName="tel" id="formulario-telefono" placeholder="ej: 606505404" maxlength="9">
 
           <!-- Fecha -->
           <label for="formulario-fecha" class="label-formulario">{{ texts_home.formulario[2] }}:</label>

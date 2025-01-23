@@ -41,6 +41,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.open_popup = true;
       this.cambio_idioma_popup.nativeElement.style.opacity = '1';
       this.cambio_idioma_popup.nativeElement.style.transform = 'translateX(0)';
+
     }
   }
   closeLanguageChanger() {
@@ -48,6 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.open_popup = false;
       this.cambio_idioma_popup.nativeElement.style.opacity = '0';
       this.cambio_idioma_popup.nativeElement.style.transform = 'translateX(200%)';
+
     }
   }
 

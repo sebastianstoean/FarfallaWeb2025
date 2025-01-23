@@ -11,7 +11,16 @@
   <div id="contenedor-header">
     <h1 id="marca" #marca>Il Piccolino della Farfalla</h1>
     <div id="botones-seccion">
-      <button class="boton" id="sin-gluten" (click)="toggleSinGluten()">{{texts_carta.botones[0]}}</button>
+      <div class="flipswitch-container">
+        <div class="flipswitch">
+          <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="fs" (click)="toggleSinGluten()">
+          <label class="flipswitch-label" for="fs">
+            <div class="flipswitch-inner"></div>
+            <div class="flipswitch-switch"></div>
+          </label>
+        </div>
+        <span class="gluten-text">{{texts_carta.botones[0]}}</span>
+      </div>
       <button id="inicio" class="boton" (click)="goToHome()">{{texts_carta.botones[1]}}</button>
       <button class="boton" id="reservar" (click)="goToReservas()">{{texts_carta.botones[2]}}</button>
     </div>
@@ -20,14 +29,14 @@
   <div id="secciones">
     <div class="elemento-seccion" *ngFor="let titulo of texts_carta.titulos; let i = index"
          (click)="changeSection(titulo)" [ngClass]="getClassName(titulo)">
-      <img [src]="'../../assets/icons/icono' + (i + 1) + '.png'" alt="" class="imagen-seccion">
+      <img [src]="'../../assets/icons/icono' + (i + 1) + '6.png'" alt="" class="imagen-seccion">
       <p class="texto-seccion">{{titulo}}</p>
     </div>
   </div>
 </header>
 
 <<section id="contenido" #contenido>
-  <div class="contenido-menu" *ngFor="let section of menuSections">
+  <div class="contenido-menu" *ngFor="let section of menuSectionsArray">
     <ng-container *ngIf="!isPyBSection(section.key); else pybTemplate">
       <div *ngFor="let item of section.items"
            class="menu hidden"
@@ -52,11 +61,12 @@
         <div class="contenido-texto-menu">
           <ul class="lista-platos">
             <li *ngFor="let plato of item.texto; let i = index" class="plato-menu">
-              {{ plato }} <span class="precio-plato">{{ item.precio[i] }}€</span>
+              {{ plato }} <br>
+              <span class="precio-plato">{{ item.precio[i] }}€</span>
             </li>
           </ul>
         </div>
-        <p class="texto-especial-menu">{{ item.especial }}</p>
+        <p class="texto-especial-menu" *ngIf="isVinos(item.titulo)">{{ item.especial }}</p>
       </div>
     </ng-template>
   </div>

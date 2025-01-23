@@ -25,7 +25,7 @@ interface LanguageTextCarta {
   botones: string[];
   titulo: string;
   titulos: string[];
-  menu_sections: menuSections[];
+  menu_sections: menuSections;
 }
 
 interface menuSections {
@@ -80,7 +80,7 @@ export class TextsService {
     ],
     carta: ['Entrantes y Ensaladas', 'Segundos Platos', 'Pizzas', 'Carnes', 'Postres y Bebidas'],
     formulario: ['Nombre', 'Teléfono de contacto', 'Fecha', 'Hora', 'Número de personas', 'He leído y acepto la Política de Privacidad', "Reservar"],
-    horario: ['Lunes a Jueves<br>13:00 - 02:00', 'Viernes, Sábados y Festivos<br>13:00 - 02:30', 'Domingos<br>13:00 - 17:00', 'Teléfono: 913694391', 'La última reserva será 1h15min antes del cierre'],
+    horario: ['Domingo a Jueves<br>13:00 - 02:00', 'Viernes, Sábados y Festivos<br>13:00 - 02:30', 'Teléfono: 913694391', 'La última reserva será 1h15min antes del cierre'],
     errores: [
       'El nombre es obligatorio.',
       'El nombre debe ser solo letras y tener entre 3 y 40 caracteres.',
@@ -105,7 +105,7 @@ export class TextsService {
     ],
     carta: ['Entrées et Salades', 'Plats principaux', 'Pizzas', 'Viandes', 'Desserts et boissons'],
     formulario: ['Nom', '\'Numéro de contact (en Espagne)\'<br>', 'Date', 'Heure', 'Nombre de personnes', 'J\'ai lu et j\'accepte la politique de confidentialité', "Réserver"],
-    horario: ['Lundi à Jeudi<br>13:00 - 02:00', 'Vendredi, Samedi et Jours Fériés<br>13:00 - 02:30', 'Dimanche<br>13:00 - 17:00', 'Téléphone : 913694391', 'La dernière réservation sera 1h15 avant la fermeture.'],
+    horario: ['Dimanche à Jeudi<br>13:00 - 02:00', 'Vendredi, Samedi et Jours Fériés<br>13:00 - 02:30', 'Téléphone : 913694391', 'La dernière réservation sera 1h15 avant la fermeture.'],
     errores: [
       'Le nom est obligatoire.',
       'Le nom doit contenir uniquement des lettres et comporter entre 3 et 40 caractères.',
@@ -132,7 +132,7 @@ export class TextsService {
     ],
     carta: ['Vorspeisen und Salate', 'Hauptgerichte', 'Pizzen', 'Fleisch', 'Desserts und Getränke'],
     formulario: ['Name', '\'Kontakttelefonnummer (in Spanien)\'', 'Datum', 'Uhrzeit', 'Anzahl der Personen', 'Ich habe die Datenschutzrichtlinie gelesen und akzeptiere sie', "Reservieren"],
-    horario: ['Montag bis Donnerstag<br>13:00 - 02:00', 'Freitag, Samstag und Feiertage<br>13:00 - 02:30', 'Sonntag<br>13:00 - 17:00', 'Telefon: 913694391', 'Die letzte Reservierung erfolgt 1h15min vor Schließung.'],
+    horario: ['Sonntag bis Donnerstag<br>13:00 - 02:00', 'Freitag, Samstag und Feiertage<br>13:00 - 02:30', 'Telefon: 913694391', 'Die letzte Reservierung erfolgt 1h15min vor Schließung.'],
     errores: [
       'Der Name ist erforderlich.',
       'Der Name darf nur Buchstaben enthalten und muss zwischen 3 und 40 Zeichen lang sein.',
@@ -159,7 +159,7 @@ export class TextsService {
     ],
     carta: ['Starters and Salads', 'Main Dishes', 'Pizzas', 'Meats', 'Desserts and beverages'],
     formulario: ['Name', 'Spanish Contact Number', 'Date', 'Time', 'Number of people', 'I have read and accept the Privacy Policy', "Reserve"],
-    horario: ['Monday to Thursday<br>13:00 - 02:00', 'Friday, Saturday, and Holidays<br>13:00 - 02:30', 'Sunday<br>13:00 - 17:00', 'Phone: 913694391', 'The last reservation will be 1h15min before closing.'],
+    horario: ['Sunday to Thursday<br>13:00 - 02:00', 'Friday, Saturday, and Holidays<br>13:00 - 02:30', 'Phone: 913694391', 'The last reservation will be 1h15min before closing.'],
     errores: [
       'The name is required.',
       'The name must contain only letters and be between 3 and 40 characters.',
@@ -186,7 +186,7 @@ export class TextsService {
     ],
     carta: ['Antipasti e Insalate', 'Piatti principali', 'Pizze', 'Carni', 'Desserts e bevande'],
     formulario: ['Nome', 'Numero di contatto (spagnolo)', 'Data', 'Orario', 'Numero di persone', 'Ho letto e accetto la Politica sulla Privacy', "Prenotare"],
-    horario: ['Lunedì a Giovedì<br>13:00 - 02:00', 'Venerdì, Sabato e Festivi<br>13:00 - 02:30', 'Domenica<br>13:00 - 17:00', 'Telefono: 913694391', 'L\'ultima prenotazione sarà 1h15min prima della chiusura.'],
+    horario: ['Domenica a Giovedì<br>13:00 - 02:00', 'Venerdì, Sabato e Festivi<br>13:00 - 02:30', 'Telefono: 913694391', 'L\'ultima prenotazione sarà 1h15min prima della chiusura.'],
     errores: [
       'Il nome è obbligatorio.',
       'Il nome deve contenere solo lettere e avere tra 3 e 40 caratteri.',
@@ -208,388 +208,384 @@ export class TextsService {
     botones: ['Sin Gluten', 'Inicio', 'Reservar'],
     titulo: 'Nuestra Carta',
     titulos: ['Ensaladas y Entrantes', 'Segundos Platos', 'Pizzas', 'Carnes', 'Postres y Bebidas'],
-    menu_sections: [
-      {
-        EyE: [
-          {
-            titulo: 'Entrantes',
-            texto: [
-              'Mejillones al vapor y emulsión de tomate (solo en invierno)',
-              'Porción de tarta de cebolla o de setas y puerro',
-              'Porción de berenjena de la abuela gratinada con tomate y queso',
-              'Chorizo de León al horno con vino',
-              'Gazpacho casero (solo en verano)',
-              'Caldo espesito casero de verduras y carne (solo en invierno)',
-              'Sopa de cebolla en caldo de verdura y carne (solo en invierno)',
-              'Empanada chilena de carne',
-              'Papa rellena de carne o de queso',
-              'Crema de Calabacín',
-              'Burrata'
-            ],
-            precio: [
-              '12,00', '5,50', '5,50', '8,10', '8,10',
-              '6,75', '8,15', '6,10', '6,50', '6,85', '8,15'
-            ]
-          },
-          {
-            titulo: 'Raciones Españolas',
-            texto: [
-              'Huevos rotos con jamón ibérico',
-              'Calamares a la andaluza con alioli',
-              'Gambones al Whiskey',
-              'Croquetas de jamón, pollo o mixtas (6u)',
-              'Patatas bravas, alioli o mixtas',
-              'Gambas al ajillo',
-              'Gulas al ajillo',
-              'Morcilla de Burgos',
-              'Matrimonio',
-              'Pulpo a la andaluza',
-              'Pimientos de Padrón',
-              'Jamón ibérico con queso'
-            ],
-            precio: [
-              '12,50', '10,50', '14,00', '8,00', '8,20',
-              '11,75', '7,50', '9,00', '8,10', '18,05',
-              '7,00', '18,00'
-            ]
-          },
-          {
-            titulo: 'Ensaladas',
-            texto: [
-              'Baby: espinacas, mezclum, queso cabra, cebolleta, frutos secos',
-              'Caprese: tomate, mozzarella búfala y pesto',
-              'Mixta: mezclum, tomate, bonito y cebolla',
-              'Blanca: mezclum, apio, manzana, nueces, salsa roquefort',
-              'De la casa: mezclum, pollo frito, picatostes, manzana y salsa de la casa',
-              'Colorida: remolacha, patata, zanahoria, huevo duro y salsa de la casa',
-            ],
-            precio: [
-              '8,15', '8,15', '8,15', '8,15', '8,15',
-              '8,15'
-            ]
-          }
-        ],
-        S: [
-          {
-            titulo: 'Pastas y Arroces',
-            texto: [
-              'Hamburguesa vegana',
-              'Arroz integral con verduras y tofu',
-              'Lasaña de verduras frescas',
-              'Berenjenas de la abuela gratinadas con tomate y queso',
-              'Tarta de cebolla o de setas y puerro (entera)',
-              'Canelones de espinacas, champiñones y nueces',
-              'Gnocchi de patata con salsa',
-              'Ravioli de espinacas y requesón con salsa',
-              'Risotto de champiñones y gambas',
-              'Lasaña de carne',
-              'Spaghetti con salsa a elegir',
-              'Sorrentinos de jamón y requesón con salsa'
-            ],
-            precio: [
-              '12,50', '12,00', '12,75', '11,25', '18,00', '12,25',
-              '11,50', '11,50', '12,70', '12,50', '10,20', '12,50'
-            ]
-          },
-          {
-            titulo: 'Salsa para Pastas',
-            texto: [
-              'Carbonara: nata, huevo y beicon',
-              'Pesto: albahaca, ajo y nueces',
-              'Arrabbiata: tomate y guindilla',
-              'Boloñesa: tomate y carne picada',
-              'Salmón ahumado y espárragos',
-              'Cuatro quesos'
-            ],
-            precio: [
-              '0', '0', '0', '0', '0',
-              '0'
-            ]
-          }
-        ],
-        P: [
-          {
-            titulo: 'Pizzas',
-            texto: [
-              'Margarita: mozzarella, tomate y orégano',
-              'Caprichosa: jamón',
-              'Funghi: champiñones',
-              'Kokido: pollo',
-              'Exquisita: tomate en rodajas y ajo',
-              'Vegetal: maíz, champiñones y pimientos',
-              'Napolitana: anchoas y alcaparras',
-              'Erótica: roquefort, apio y nueces',
-              'Cuatro quesos',
-              'Hawaiana: piña y jamón',
-              'Especial: beicon, cebolla y champiñones',
-              'Carnosa: carne de ternera',
-              'Mediterránea: atún',
-              'Castellana: chorizo, salami o bacon',
-              'Picantona: pepperoni y pimienta',
-              'Sabrosa: picadillo de chorizo',
-              'Hazla tú mismo: base margarita + 2 ingredientes de otras pizzas',
-              'Hazla vegana: cambia la mozzarella por queso vegano'
-            ],
-            precio: [
-              '8,75€', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35',
-              '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,90', '+1,40'
-            ]
-          }
-        ],
-        C: [
-          {
-            titulo: 'Carnes a la Parrilla de Carbón',
-            texto: [
-              'Asado de tira',
-              'Vacío',
-              'Entraña',
-              'Entrecot o Chuletón',
-              'Parrillada para dos personas'
-            ],
-            precio: [
-              '15,50', '16,50', '16,50', '18,50', '33,00'
-            ]
-          },
-          {
-            titulo: 'Otras Carnes',
-            texto: [
-              'Alitas de pollo',
-              'Pollo de corral al curry con leche de coco y guarnición',
-              'Escalope de ternera napolitano',
-              'Escalope de pollo',
-              'Escalope de pollo gratinado con tomate y queso',
-              'Albóndigas de ternera caseras',
-              'Hamburguesa de ternera',
-              'Salmón a la plancha'
-            ],
-            precio: [
-              '9,00', '14,10', '14,50', '12,50', '13,90',
-              '11,00', '15,10', '15,20'
-            ]
-          }
-        ],
-        PyB: [
-          {
-            titulo: 'Postres',
-            texto: [
-              'Caprichos de dulce de leche',
-              'Tarta casera de queso al horno',
-              'Strudel de manzana casero con helado',
-              'Brownie casero con helado y chocolate caliente',
-              'Tarta de chocolate vegana, sin gluten y sin lactosa',
-              'Charlotte: helado de nata con chocolate caliente y nueces',
-              'Helado (vainilla, chocolate o nata)',
-              'Tiramisú casero',
-              'Trufas con nata',
-              'Alfajor de maicena con dulce de leche y coco',
-              'Fruta del día'
-            ],
-            precio: [
-              '7,15', '5,70', '5,70', '5,70', '5,70',
-              '5,70', '4,50', '5,70', '5,70', '4,00',
-              '2,75'
-            ],
-            especial: ""
-          },
-          {
-            titulo: 'Vinos',
-            texto: ['Albariño - Blanco',
-              'De la casa: Lanchares - tempranillo Blanco o Tinto','Ribera del Duero - Tinto','Cune Rioja Crianza - Tinto','½ Cune Rioja Crianza - Tinto','Blanco de Rueda','Rosado de Navarra','Lambrusco - Tinto o Rosado','Jarra de Sangría','Jarra de Tinto de verano','Cava','Benjamín - Mini Cava','Protos - Tinto','Azpilicueta - Rioja Crianza Tinto','Alma - Blanco, Tinto o Rosado semidulce','Diamante - Blanco semidulce','Dulce Maria - Blanco'],
-            precio: ['17,50','13,50','17,50','18,00','9,80','16,90','16,50','13,25','17,50','15,50','24,00','9,50','22,00','22,00','17,50','18,00','18,50'],
-            especial: 'Pregúntanos por nuestra selección especial'
-          },
-          {
-            titulo: 'Copas de Vino',
-            texto: ['De la casa: Lanchares - tempranillo Blanco o Tinto','Ribera del Duero - Tinto','Cune Rioja Crianza - Tinto','Blanco de Rueda','Rosado de Navarra','Alma - Blanco, Tinto o Rosado semidulce','Diamante - Blanco semidulce','Dulce Maria - Blanco'],
-            precio: ['3,40','3,80','4,30','4,05','3,90','3,80','4,00','4,10'],
-            especial: ""
-          },
-          {
-            titulo: 'Refrescos y Otros',
-            texto: ['Refrescos','Jarritos','Zumos','Agua con gas o mineral','Café','Café - sin lactosa o vegetal','Té o infusión'],
-            precio: ['3,50','4,25','3,50','2,25','1,95','2,15','1,95'],
-            especial: ""
-          },
-          {
-            titulo: 'Otros Alcoholes y Cervezas',
-            texto: ['Pinta de Cerveza','Copa de Cerveza','Tinto de Verano','Ladrón de Manzanas','Mahou (33cl)','Alhambra 1925 (33cl)','Cibeles Rubia (33cl)','Corona (33cl)','Peroni (33cl)','Maestra (33cl)','Sin Gluten (33cl)'],
-            precio: ['4,25','3,20','4,50','3,75','3,80','4,50','5,00','4,20','4,50','4,20','4,20'],
-            especial: ""
-          }
-        ]
-      }
-    ]
+    menu_sections: {
+      EyE: [
+        {
+          titulo: 'Entrantes',
+          texto: [
+            'Mejillones al vapor y emulsión de tomate (solo en invierno)',
+            'Porción de tarta de cebolla o de setas y puerro',
+            'Porción de berenjena de la abuela gratinada con tomate y queso',
+            'Chorizo de León al horno con vino',
+            'Gazpacho casero (solo en verano)',
+            'Caldo espesito casero de verduras y carne (solo en invierno)',
+            'Sopa de cebolla en caldo de verdura y carne (solo en invierno)',
+            'Empanada chilena de carne',
+            'Papa rellena de carne o de queso',
+            'Crema de Calabacín',
+            'Burrata'
+          ],
+          precio: [
+            '12,00', '5,50', '5,50', '8,10', '8,10',
+            '6,75', '8,15', '6,10', '6,50', '6,85', '8,15'
+          ]
+        },
+        {
+          titulo: 'Raciones Españolas',
+          texto: [
+            'Huevos rotos con jamón ibérico',
+            'Calamares a la andaluza con alioli',
+            'Gambones al Whiskey',
+            'Croquetas de jamón, pollo o mixtas (6u)',
+            'Patatas bravas, alioli o mixtas',
+            'Gambas al ajillo',
+            'Gulas al ajillo',
+            'Morcilla de Burgos',
+            'Matrimonio',
+            'Pulpo a la andaluza',
+            'Pimientos de Padrón',
+            'Jamón ibérico con queso'
+          ],
+          precio: [
+            '12,50', '10,50', '14,00', '8,00', '8,20',
+            '11,75', '7,50', '9,00', '8,10', '18,05',
+            '7,00', '18,00'
+          ]
+        },
+        {
+          titulo: 'Ensaladas',
+          texto: [
+            'Baby: espinacas, mezclum, queso cabra, cebolleta, frutos secos',
+            'Caprese: tomate, mozzarella búfala y pesto',
+            'Mixta: mezclum, tomate, bonito y cebolla',
+            'Blanca: mezclum, apio, manzana, nueces, salsa roquefort',
+            'De la casa: mezclum, pollo frito, picatostes, manzana y salsa de la casa',
+            'Colorida: remolacha, patata, zanahoria, huevo duro y salsa de la casa',
+          ],
+          precio: [
+            '8,15', '8,15', '8,15', '8,15', '8,15',
+            '8,15'
+          ]
+        }
+      ],
+      S: [
+        {
+          titulo: 'Pastas y Arroces',
+          texto: [
+            'Hamburguesa vegana',
+            'Arroz integral con verduras y tofu',
+            'Lasaña de verduras frescas',
+            'Berenjenas de la abuela gratinadas con tomate y queso',
+            'Tarta de cebolla o de setas y puerro (entera)',
+            'Canelones de espinacas, champiñones y nueces',
+            'Gnocchi de patata con salsa',
+            'Ravioli de espinacas y requesón con salsa',
+            'Risotto de champiñones y gambas',
+            'Lasaña de carne',
+            'Spaghetti con salsa a elegir',
+            'Sorrentinos de jamón y requesón con salsa'
+          ],
+          precio: [
+            '12,50', '12,00', '12,75', '11,25', '18,00', '12,25',
+            '11,50', '11,50', '12,70', '12,50', '10,20', '12,50'
+          ]
+        },
+        {
+          titulo: 'Salsa para Pastas',
+          texto: [
+            'Carbonara: nata, huevo y beicon',
+            'Pesto: albahaca, ajo y nueces',
+            'Arrabbiata: tomate y guindilla',
+            'Boloñesa: tomate y carne picada',
+            'Salmón ahumado y espárragos',
+            'Cuatro quesos'
+          ],
+          precio: [
+            '0', '0', '0', '0', '0',
+            '0'
+          ]
+        }
+      ],
+      P: [
+        {
+          titulo: 'Pizzas',
+          texto: [
+            'Margarita: mozzarella, tomate y orégano',
+            'Caprichosa: jamón',
+            'Funghi: champiñones',
+            'Kokido: pollo',
+            'Exquisita: tomate en rodajas y ajo',
+            'Vegetal: maíz, champiñones y pimientos',
+            'Napolitana: anchoas y alcaparras',
+            'Erótica: roquefort, apio y nueces',
+            'Cuatro quesos',
+            'Hawaiana: piña y jamón',
+            'Especial: beicon, cebolla y champiñones',
+            'Carnosa: carne de ternera',
+            'Mediterránea: atún',
+            'Castellana: chorizo, salami o bacon',
+            'Picantona: pepperoni y pimienta',
+            'Sabrosa: picadillo de chorizo',
+            'Hazla tú mismo: base margarita + 2 ingredientes de otras pizzas',
+            'Hazla vegana: cambia la mozzarella por queso vegano'
+          ],
+          precio: [
+            '8,75€', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35',
+            '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,35', '9,90', '+1,40'
+          ]
+        }
+      ],
+      C: [
+        {
+          titulo: 'Carnes a la Parrilla de Carbón',
+          texto: [
+            'Asado de tira',
+            'Vacío',
+            'Entraña',
+            'Entrecot o Chuletón',
+            'Parrillada para dos personas'
+          ],
+          precio: [
+            '15,50', '16,50', '16,50', '18,50', '33,00'
+          ]
+        },
+        {
+          titulo: 'Otras Carnes',
+          texto: [
+            'Alitas de pollo',
+            'Pollo de corral al curry con leche de coco y guarnición',
+            'Escalope de ternera napolitano',
+            'Escalope de pollo',
+            'Escalope de pollo gratinado con tomate y queso',
+            'Albóndigas de ternera caseras',
+            'Hamburguesa de ternera',
+            'Salmón a la plancha'
+          ],
+          precio: [
+            '9,00', '14,10', '14,50', '12,50', '13,90',
+            '11,00', '15,10', '15,20'
+          ]
+        }
+      ],
+      PyB: [
+        {
+          titulo: 'Postres',
+          texto: [
+            'Caprichos de dulce de leche',
+            'Tarta casera de queso al horno',
+            'Strudel de manzana casero con helado',
+            'Brownie casero con helado y chocolate caliente',
+            'Tarta de chocolate vegana, sin gluten y sin lactosa',
+            'Charlotte: helado de nata con chocolate caliente y nueces',
+            'Helado (vainilla, chocolate o nata)',
+            'Tiramisú casero',
+            'Trufas con nata',
+            'Alfajor de maicena con dulce de leche y coco',
+            'Fruta del día'
+          ],
+          precio: [
+            '7,15', '5,70', '5,70', '5,70', '5,70',
+            '5,70', '4,50', '5,70', '5,70', '4,00',
+            '2,75'
+          ],
+          especial: ""
+        },
+        {
+          titulo: 'Vinos',
+          texto: ['Albariño - Blanco',
+            'De la casa: Lanchares - tempranillo Blanco o Tinto','Ribera del Duero - Tinto','Cune Rioja Crianza - Tinto','½ Cune Rioja Crianza - Tinto','Blanco de Rueda','Rosado de Navarra','Lambrusco - Tinto o Rosado','Jarra de Sangría','Jarra de Tinto de verano','Cava','Benjamín - Mini Cava','Protos - Tinto','Azpilicueta - Rioja Crianza Tinto','Alma - Blanco, Tinto o Rosado semidulce','Diamante - Blanco semidulce','Dulce Maria - Blanco'],
+          precio: ['17,50','13,50','17,50','18,00','9,80','16,90','16,50','13,25','17,50','15,50','24,00','9,50','22,00','22,00','17,50','18,00','18,50'],
+          especial: 'Pregúntanos por nuestra selección especial'
+        },
+        {
+          titulo: 'Copas de Vino',
+          texto: ['De la casa: Lanchares - tempranillo Blanco o Tinto','Ribera del Duero - Tinto','Cune Rioja Crianza - Tinto','Blanco de Rueda','Rosado de Navarra','Alma - Blanco, Tinto o Rosado semidulce','Diamante - Blanco semidulce','Dulce Maria - Blanco'],
+          precio: ['3,40','3,80','4,30','4,05','3,90','3,80','4,00','4,10'],
+          especial: ""
+        },
+        {
+          titulo: 'Refrescos y Otros',
+          texto: ['Refrescos','Jarritos','Zumos','Agua con gas o mineral','Café','Café - sin lactosa o vegetal','Té o infusión'],
+          precio: ['3,50','4,25','3,50','2,25','1,95','2,15','1,95'],
+          especial: ""
+        },
+        {
+          titulo: 'Otros Alcoholes y Cervezas',
+          texto: ['Pinta de Cerveza','Copa de Cerveza','Tinto de Verano','Ladrón de Manzanas','Mahou (33cl)','Alhambra 1925 (33cl)','Cibeles Rubia (33cl)','Corona (33cl)','Peroni (33cl)','Maestra (33cl)','Sin Gluten (33cl)'],
+          precio: ['4,25','3,20','4,50','3,75','3,80','4,50','5,00','4,20','4,50','4,20','4,20'],
+          especial: ""
+        }
+      ]
+    }
   };
   es_lang_carta_sg: LanguageTextCarta = {
-    botones: ['Con Gluten', 'Inicio', 'Reservar'],
+    botones: ['Sin Gluten', 'Inicio', 'Reservar'],
     titulo: 'Nuestra Carta',
     titulos: ['Ensaladas y Entrantes', 'Segundos Platos', 'Pizzas', 'Carnes', 'Postres y Bebidas'],
-    menu_sections: [
-      {
-        EyE: [
-          {
-            titulo: 'Entrantes',
-            texto: [
-              'Mejillones al vapor y emulsión de tomate (solo en invierno)',
-              'Porción de berenjena gratinada con tomate y queso',
-              'Chorizo de León al horno con vino',
-              'Caldo espesito casero de verduras y carne (solo en invierno)',
-              'Sopa de cebolla en caldo de verdura y carne (solo en invierno)',
-              'Crema de Calabacín',
-              'Burrata'
-            ],
-            precio: [
-              '12,00', '5,50', '8,10', '6,75', '8,45', '6,85', '8,15'
-            ]
-          },
-          {
-            titulo: 'Ensaladas',
-            texto: [
-              'Baby: espinacas, lechugas, queso de cabra, cebolleta, frutos secos',
-              'Caprese: tomate, mozzarella búfala y pesto',
-              'Mixta: lechugas coloridas, tomate, bonito y cebolla',
-              'Blanca: lechuga, apio, manzana, nueces, salsa roquefort',
-              'Colorida: remolacha, patata, zanahoria, huevo duro',
-              'Especial: lechuga, barritas de cangrejo y espárragos blancos'
-            ],
-            precio: [
-              '8,15', '8,15', '8,15', '8,15', '8,15', '8,15'
-            ]
-          }
-        ],
-        S: [
-          {
-            titulo: 'Pastas y Arroces',
-            texto: [
-              'Hamburguesa vegana',
-              'Arroz integral con verduras y tofu',
-              'Berenjenas gratinadas con tomate y queso',
-              'Tarta de cebolla o de setas y puerro (entera)',
-              'Risotto de champiñones y gambas',
-              'Spaghetti con salsa a elegir'
-            ],
-            precio: [
-              '12,50', '12,00', '11,25', '18,00', '12,70', '10,20'
-            ]
-          },
-          {
-            titulo: 'Salsa para Pastas',
-            texto: [
-              'Carbonara: nata, huevo y beicon',
-              'Pesto: albahaca, ajo y nueces',
-              'Arrabbiata: tomate y guindilla',
-              'Boloñesa: tomate y carne picada',
-              'Salmón ahumado y espárragos',
-              'Cuatro quesos'
-            ],
-            precio: [
-              '0', '0', '0', '0', '0', '0'
-            ]
-          }
-        ],
-        P: [
-          {
-            titulo: 'Pizzas',
-            texto: [
-              'Margarita: mozzarella, tomate y orégano',
-              'Caprichosa: jamón',
-              'Funghi: champiñones',
-              'Kokido: pollo',
-              'Exquisita: tomate en rodajas y ajo',
-              'Vegetal: maíz, champiñones y pimientos',
-              'Napolitana: anchoas y alcaparras',
-              'Erótica: roquefort, apio y nueces',
-              'Cuatro quesos',
-              'Hawaiana: piña y jamón',
-              'Especial: beicon, cebolla y champiñones',
-              'Carnosa: carne de ternera',
-              'Mediterránea: atún',
-              'Castellana: chorizo, salami o bacon',
-              'Picantona: pepperoni y pimienta',
-              'Sabrosa: picadillo de chorizo',
-              'Hazla tú mismo: base margarita + 2 ingredientes de otras pizzas',
-              'Hazla para tí: cambia la mozzarella por queso vegano o sin lactosa'
-            ],
-            precio: [
-              '9,50', '10,50', '10,50', '10,50', '10,50', '10,50', '10,50', '10,50',
-              '10,50', '10,50', '10,50', '10,50', '10,50', '10,50', '10,50', '10,50',
-              '10,95', '+1,40'
-            ]
-          }
-        ],
-        C: [
-          {
-            titulo: 'Carnes a la Parrilla de Carbón',
-            texto: [
-              'Asado de tira',
-              'Vacío',
-              'Entraña',
-              'Entrecot',
-              'Parrillada para dos personas'
-            ],
-            precio: [
-              '15,50', '16,50', '16,50', '18,50', '33,00'
-            ]
-          },
-          {
-            titulo: 'Otras Carnes',
-            texto: [
-              'Pollo de corral al curry con leche de coco y guarnición',
-              'Hamburguesa de ternera',
-              'Salmón a la plancha'
-            ],
-            precio: [
-              '14,10', '15,10', '15,20'
-            ]
-          }
-        ],
-        PyB: [
-          {
-            titulo: 'Postres',
-            texto: [
-              'Tarta casera de queso al horno',
-              'Brownie casero con helado y chocolate caliente',
-              'Tarta de chocolate vegana, sin gluten y sin lactosa',
-              'Charlotte: helado de nata con chocolate caliente y nueces',
-              'Helado (vainilla, chocolate o nata)',
-              'Trufas con nata',
-              'Fruta del día'
-            ],
-            precio: [
-              '5,70', '5,70', '5,70',
-              '5,70', '4,50', '5,70',
-              '2,75'
-            ],
-            especial: ""
-          },
-          {
-            titulo: 'Vinos',
-            texto: ['Albariño - Blanco',
-              'De la casa: Lanchares - tempranillo Blanco o Tinto','Ribera del Duero - Tinto','Cune Rioja Crianza - Tinto','½ Cune Rioja Crianza - Tinto','Blanco de Rueda','Rosado de Navarra','Lambrusco - Tinto o Rosado','Jarra de Sangría','Jarra de Tinto de verano','Cava','Benjamín - Mini Cava','Protos - Tinto','Azpilicueta - Rioja Crianza Tinto','Alma - Blanco, Tinto o Rosado semidulce','Diamante - Blanco semidulce','Dulce Maria - Blanco'],
-            precio: ['17,50','13,50','17,50','18,00','9,80','16,90','16,50','13,25','17,50','15,50','24,00','9,50','22,00','22,00','17,50','18,00','18,50'],
-            especial: 'Pregúntanos por nuestra selección especial'
-          },
-          {
-            titulo: 'Copas de Vino',
-            texto: ['De la casa: Lanchares - tempranillo Blanco o Tinto','Ribera del Duero - Tinto','Cune Rioja Crianza - Tinto','Blanco de Rueda','Rosado de Navarra','Alma - Blanco, Tinto o Rosado semidulce','Diamante - Blanco semidulce','Dulce Maria - Blanco'],
-            precio: ['3,40','3,80','4,30','4,05','3,90','3,80','4,00','4,10'],
-            especial: ""
-          },
-          {
-            titulo: 'Refrescos y Otros',
-            texto: ['Refrescos','Jarritos','Zumos','Agua con gas o mineral','Café','Café - sin lactosa o vegetal','Té o infusión'],
-            precio: ['3,50','4,25','3,50','2,25','1,95','2,15','1,95'],
-            especial: ""
-          },
-          {
-            titulo: 'Otros Alcoholes y Cervezas',
-            texto: ['Tinto de Verano','Ladrón de Manzanas','Cerveza Sin Gluten (33cl)'],
-            precio: ['4,50','3,75','4,20'],
-            especial: ""
-          }
-        ]
-      }
-    ]
+    menu_sections: {
+      EyE: [
+        {
+          titulo: 'Entrantes',
+          texto: [
+            'Mejillones al vapor y emulsión de tomate (solo en invierno)',
+            'Porción de berenjena gratinada con tomate y queso',
+            'Chorizo de León al horno con vino',
+            'Caldo espesito casero de verduras y carne (solo en invierno)',
+            'Sopa de cebolla en caldo de verdura y carne (solo en invierno)',
+            'Crema de Calabacín',
+            'Burrata'
+          ],
+          precio: [
+            '12,00', '5,50', '8,10', '6,75', '8,45', '6,85', '8,15'
+          ]
+        },
+        {
+          titulo: 'Ensaladas',
+          texto: [
+            'Baby: espinacas, lechugas, queso de cabra, cebolleta, frutos secos',
+            'Caprese: tomate, mozzarella búfala y pesto',
+            'Mixta: lechugas coloridas, tomate, bonito y cebolla',
+            'Blanca: lechuga, apio, manzana, nueces, salsa roquefort',
+            'Colorida: remolacha, patata, zanahoria, huevo duro',
+            'Especial: lechuga, barritas de cangrejo y espárragos blancos'
+          ],
+          precio: [
+            '8,15', '8,15', '8,15', '8,15', '8,15', '8,15'
+          ]
+        }
+      ],
+      S: [
+        {
+          titulo: 'Pastas y Arroces',
+          texto: [
+            'Hamburguesa vegana',
+            'Arroz integral con verduras y tofu',
+            'Berenjenas gratinadas con tomate y queso',
+            'Tarta de cebolla o de setas y puerro (entera)',
+            'Risotto de champiñones y gambas',
+            'Spaghetti con salsa a elegir'
+          ],
+          precio: [
+            '12,50', '12,00', '11,25', '18,00', '12,70', '10,20'
+          ]
+        },
+        {
+          titulo: 'Salsa para Pastas',
+          texto: [
+            'Carbonara: nata, huevo y beicon',
+            'Pesto: albahaca, ajo y nueces',
+            'Arrabbiata: tomate y guindilla',
+            'Boloñesa: tomate y carne picada',
+            'Salmón ahumado y espárragos',
+            'Cuatro quesos'
+          ],
+          precio: [
+            '0', '0', '0', '0', '0', '0'
+          ]
+        }
+      ],
+      P: [
+        {
+          titulo: 'Pizzas',
+          texto: [
+            'Margarita: mozzarella, tomate y orégano',
+            'Caprichosa: jamón',
+            'Funghi: champiñones',
+            'Kokido: pollo',
+            'Exquisita: tomate en rodajas y ajo',
+            'Vegetal: maíz, champiñones y pimientos',
+            'Napolitana: anchoas y alcaparras',
+            'Erótica: roquefort, apio y nueces',
+            'Cuatro quesos',
+            'Hawaiana: piña y jamón',
+            'Especial: beicon, cebolla y champiñones',
+            'Carnosa: carne de ternera',
+            'Mediterránea: atún',
+            'Castellana: chorizo, salami o bacon',
+            'Picantona: pepperoni y pimienta',
+            'Sabrosa: picadillo de chorizo',
+            'Hazla tú mismo: base margarita + 2 ingredientes de otras pizzas',
+            'Hazla para tí: cambia la mozzarella por queso vegano o sin lactosa'
+          ],
+          precio: [
+            '9,50', '10,50', '10,50', '10,50', '10,50', '10,50', '10,50', '10,50',
+            '10,50', '10,50', '10,50', '10,50', '10,50', '10,50', '10,50', '10,50',
+            '10,95', '+1,40'
+          ]
+        }
+      ],
+      C: [
+        {
+          titulo: 'Carnes a la Parrilla de Carbón',
+          texto: [
+            'Asado de tira',
+            'Vacío',
+            'Entraña',
+            'Entrecot',
+            'Parrillada para dos personas'
+          ],
+          precio: [
+            '15,50', '16,50', '16,50', '18,50', '33,00'
+          ]
+        },
+        {
+          titulo: 'Otras Carnes',
+          texto: [
+            'Pollo de corral al curry con leche de coco y guarnición',
+            'Hamburguesa de ternera',
+            'Salmón a la plancha'
+          ],
+          precio: [
+            '14,10', '15,10', '15,20'
+          ]
+        }
+      ],
+      PyB: [
+        {
+          titulo: 'Postres',
+          texto: [
+            'Tarta casera de queso al horno',
+            'Brownie casero con helado y chocolate caliente',
+            'Tarta de chocolate vegana, sin gluten y sin lactosa',
+            'Charlotte: helado de nata con chocolate caliente y nueces',
+            'Helado (vainilla, chocolate o nata)',
+            'Trufas con nata',
+            'Fruta del día'
+          ],
+          precio: [
+            '5,70', '5,70', '5,70',
+            '5,70', '4,50', '5,70',
+            '2,75'
+          ],
+          especial: ""
+        },
+        {
+          titulo: 'Vinos',
+          texto: ['Albariño - Blanco',
+            'De la casa: Lanchares - tempranillo Blanco o Tinto','Ribera del Duero - Tinto','Cune Rioja Crianza - Tinto','½ Cune Rioja Crianza - Tinto','Blanco de Rueda','Rosado de Navarra','Lambrusco - Tinto o Rosado','Jarra de Sangría','Jarra de Tinto de verano','Cava','Benjamín - Mini Cava','Protos - Tinto','Azpilicueta - Rioja Crianza Tinto','Alma - Blanco, Tinto o Rosado semidulce','Diamante - Blanco semidulce','Dulce Maria - Blanco'],
+          precio: ['17,50','13,50','17,50','18,00','9,80','16,90','16,50','13,25','17,50','15,50','24,00','9,50','22,00','22,00','17,50','18,00','18,50'],
+          especial: 'Pregúntanos por nuestra selección especial'
+        },
+        {
+          titulo: 'Copas de Vino',
+          texto: ['De la casa: Lanchares - tempranillo Blanco o Tinto','Ribera del Duero - Tinto','Cune Rioja Crianza - Tinto','Blanco de Rueda','Rosado de Navarra','Alma - Blanco, Tinto o Rosado semidulce','Diamante - Blanco semidulce','Dulce Maria - Blanco'],
+          precio: ['3,40','3,80','4,30','4,05','3,90','3,80','4,00','4,10'],
+          especial: ""
+        },
+        {
+          titulo: 'Refrescos y Otros',
+          texto: ['Refrescos','Jarritos','Zumos','Agua con gas o mineral','Café','Café - sin lactosa o vegetal','Té o infusión'],
+          precio: ['3,50','4,25','3,50','2,25','1,95','2,15','1,95'],
+          especial: ""
+        },
+        {
+          titulo: 'Otros Alcoholes y Cervezas',
+          texto: ['Tinto de Verano','Ladrón de Manzanas','Cerveza Sin Gluten (33cl)'],
+          precio: ['4,50','3,75','4,20'],
+          especial: ""
+        }
+      ]
+    }
   };
 
 

@@ -360,13 +360,18 @@ section, #contenido-venir {
 }
 
 #titulo-horario, #titulo-reservas {
-  font-size: 40px;
   margin-bottom: 40px;
   text-align: center;
 }
+#titulo-reservas {
+  font-size: 40px;
+}
+#titulo-horario {
+  font-size: 36px;
+}
 
 #horario p {
-  font-size: 28px;
+  font-size: 24px;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -374,7 +379,7 @@ section, #contenido-venir {
 #texto5-horario {
   font-size: 18px !important;
   width: 75%;
-  margin: auto;
+  margin: 50px auto auto auto;
 }
 
 #reservas {
@@ -585,7 +590,7 @@ section, #contenido-venir {
 
 
 
-@media (max-width: 420px){
+@media (max-width: 460px){
   #cont-idioma {
     right: 50px;
   }
@@ -595,7 +600,10 @@ section, #contenido-venir {
   }
 
   #titulo-bienvenida, #titulo-a-medida {
-    font-size: 48px;
+    font-size: 40px;
+    text-align: center;
+    align-self: center;
+    width: 100%;
   }
 
   #titulo-bienvenida2 {
@@ -605,6 +613,9 @@ section, #contenido-venir {
   #texto-bienvenida, #texto-a-medida {
     font-size: 20px;
     text-align: center;
+    align-self: center;
+    padding: 0;
+    margin: 0;
   }
 }
 
@@ -630,7 +641,6 @@ section, #contenido-venir {
   #titulo-bienvenida {
     align-self: start;
     justify-self: auto;
-    text-align: left;
   }
 
   #titulo-bienvenida, #titulo-a-meidid {
@@ -643,10 +653,7 @@ section, #contenido-venir {
   }
 
   #texto-bienvenida {
-    align-self: start;
     justify-self: auto;
-    text-align: left;
-    margin-left: 4vw;
   }
 
   #titulo-a-medida {
@@ -663,6 +670,10 @@ section, #contenido-venir {
 
   #titulo-principal {
     margin: 30px auto auto auto
+  }
+
+  .contenedor-boton-carta {
+    display: none;
   }
 }
 

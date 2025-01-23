@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   constructor(private deviceService: DeviceDetectorService, private router: Router, private textsService: TextsService, private fb: FormBuilder) {
     this.formulario_reservas = this.fb.group({
-      nombre: ['', [Validators.required, Validators.pattern('[a-zA-Z ]{3,40}')]],
+      nombre: ['', [Validators.required, Validators.pattern('[a-zA-ZáéíóúçÁÉÍÓÚÇ ]{3,40}')]],
       tel: ['', [Validators.required, Validators.pattern('[6-7,9]{1}[0-9]{8}')]],
       fecha: ['', Validators.required],
       hora: ['', Validators.required],
@@ -227,6 +227,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   goToCarta(): void {
     this.router.navigate(['/carta']);
+  }
+
+  goToCartaWithSelection(i: number) {
+    document.cookie = `redirectCarta=${i}; path=/`;
+    this.goToCarta()
   }
 
   @ViewChild('seccionReservas') seccion_reservas: ElementRef | null = null;

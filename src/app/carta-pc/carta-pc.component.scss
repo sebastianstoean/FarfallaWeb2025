@@ -1,11 +1,14 @@
 $primary-color: #2E4756;  // Azul fondo
+$primary-color-transparente: rgba(46, 71, 86, 0.6);
 $secondary-color: #ECFEAA;  // Amarillo
 $accent-color: #00A896;  // Azul botones
+$lighter-accent-color: #01ccb6;
 $final-color: #7E998A;  // Azul footer
 $button-hover-color: #e5ff7c;
 $titulo-azul-color: #287DAF;
 $input-color: #E1EAC1;
 $darker-primary-color: #203947;
+$lighter-primary-color: #42667c;
 $alerta-color: #ff0000;
 
 body {
@@ -38,9 +41,10 @@ header {
   position: fixed;
   top: 0;
   max-height: 50%;
-  -webkit-box-shadow: 3px 16px 20px 16px $primary-color;
-  -moz-box-shadow: 3px 16px 20px 16px $primary-color;
-  box-shadow: 3px 16px 20px 16px $primary-color;
+  -webkit-box-shadow: 2px 8px 12px 4px $primary-color-transparente;
+  -moz-box-shadow: 2px 8px 12px 4px $primary-color-transparente;
+  box-shadow: 2px 8px 12px 4px $primary-color-transparente;
+
 }
 
 #contenedor-header {
@@ -111,6 +115,7 @@ header {
 
 #secciones {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 5vw;
@@ -122,7 +127,9 @@ header {
 }
 
 .elemento-seccion {
-  min-width: 70px;
+  flex: 1;
+  max-width: 100px;
+  min-width: 40px;
   margin-bottom: auto;
   position: relative;
   display: flex;
@@ -149,7 +156,8 @@ header {
 .imagen-seccion {
   margin-top: 0;
   width: 100%;
-  min-width: 70px;
+  min-width: 40px;
+  max-width: 100px;
 }
 
 #contenido {
@@ -214,6 +222,92 @@ ul {
   display: none;
 }
 
+.texto-especial-menu {
+  font-size: 18px;
+  text-align: center;
+  border-radius: 15px;
+  background-color: $lighter-accent-color;
+  color: white !important;
+  padding: 5px 10px;
+}
+
+.flipswitch {
+  position: relative;
+  width: 35px;
+}
+.flipswitch input[type=checkbox] {
+  display: none;
+}
+.flipswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid #999999;
+  border-radius: 50px;
+}
+.flipswitch-inner {
+  width: 200%;
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+.flipswitch-inner:before, .flipswitch-inner:after {
+  float: left;
+  width: 50%;
+  height: 12px;
+  padding: 0;
+  line-height: 12px;
+  font-size: 18px;
+  color: white;
+  font-family: Trebuchet, Arial, sans-serif;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+.flipswitch-inner:before {
+  content: "";
+  padding-left: 12px;
+  background-color: $accent-color;
+}
+.flipswitch-inner:after {
+  content: "";
+  padding-right: 12px;
+  background: none;
+  color: #888888;
+  text-align: right;
+}
+.flipswitch-switch {
+  width: 18px;
+  margin: -3px;
+  background: #FFFFFF;
+  border: 1px solid #999999;
+  border-radius: 50px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 21px;
+  transition: all 0.3s ease-in 0s;
+}
+.flipswitch-cb:checked + .flipswitch-label .flipswitch-inner {
+  margin-left: 0;
+}
+.flipswitch-cb:checked + .flipswitch-label .flipswitch-switch {
+  right: 0;
+}
+
+
+.flipswitch-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: $lighter-primary-color;
+  border-radius: 50px;
+}
+
+.gluten-text {
+  font-size: 16px;
+}
+
+
 @media (max-width: 800px){
   #marca {
     display: none;
@@ -224,9 +318,14 @@ ul {
   }
 }
 
-@media (max-width: 440px){
+@media (max-width: 460px){
   header {
-    padding-top: 50px
+    padding: 0 2vw;
+  }
+
+  #secciones {
+    padding-top: 20px;
+    padding-bottom: 10px;
   }
 
   #botones-seccion {
@@ -235,5 +334,22 @@ ul {
 
   .contenido-menu {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  #reservar {
+    display: none;
+  }
+
+  #titulo {
+    display: none;
+  }
+
+  .texto-seccion {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    margin-top: 0px
   }
 }

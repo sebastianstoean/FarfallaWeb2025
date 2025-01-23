@@ -3,11 +3,26 @@
 
 <div class="popup" id="cambio-idioma" #cambioIdioma>
   <span class="boton-cerrar" (click)="closeLanguageChanger()">x</span>
-  <p (click)="changeLanguage('ES')" [class.disabled]="language === 'ES'">ES</p>
-  <p (click)="changeLanguage('EN')" [class.disabled]="language === 'EN'">EN</p>
-  <p (click)="changeLanguage('DE')" [class.disabled]="language === 'DE'">DE</p>
-  <p (click)="changeLanguage('IT')" [class.disabled]="language === 'IT'">IT</p>
-  <p (click)="changeLanguage('FR')" [class.disabled]="language === 'FR'">FR</p>
+    <div class="idioma">
+      <p (click)="changeLanguage('ES')" [class.disabled]="language === 'ES'">ES</p>
+      <img class="lang-image" src="./assets/icons/spain.png" alt="spanish">
+    </div>
+    <div class="idioma">
+      <p (click)="changeLanguage('EN')" [class.disabled]="language === 'EN'">EN</p>
+      <img class="lang-image" src="./assets/icons/united-kingdom.png" alt="english">
+    </div>
+    <div class="idioma">
+      <p (click)="changeLanguage('DE')" [class.disabled]="language === 'DE'">DE</p>
+      <img class="lang-image" src="./assets/icons/germany.png" alt="german">
+    </div>
+    <div class="idioma">
+      <p (click)="changeLanguage('IT')" [class.disabled]="language === 'IT'">IT</p>
+      <img class="lang-image" src="./assets/icons/italy.png" alt="italian">
+    </div>
+    <div class="idioma">
+      <p (click)="changeLanguage('FR')" [class.disabled]="language === 'FR'">FR</p>
+      <img class="lang-image" src="./assets/icons/france.png" alt="french">
+    </div>
 </div>
 <header>
   <img src="../assets/icons/logo.png" alt="" id="logo" class="item-header">
