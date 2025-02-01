@@ -33,9 +33,10 @@ interface LanguageTextCarta {
 }
 
 @Component({
-  selector: 'app-carta-pc',
-  templateUrl: './carta-pc.component.html',
-  styleUrls: ['./carta-pc.component.scss']
+    selector: 'app-carta-pc',
+    templateUrl: './carta-pc.component.html',
+    styleUrls: ['./carta-pc.component.scss'],
+    standalone: false
 })
 export class CartaPcComponent implements OnInit, AfterViewInit {
   texts_carta: LanguageTextCarta = this.textsService.getTextsCarta();
