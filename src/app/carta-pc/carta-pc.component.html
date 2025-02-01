@@ -12,14 +12,14 @@
     <h1 id="marca" #marca>Il Piccolino della Farfalla</h1>
     <div id="botones-seccion">
       <div class="flipswitch-container">
-        <div class="flipswitch">
-          <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="fs" (click)="toggleSinGluten()">
-          <label class="flipswitch-label" for="fs">
-            <div class="flipswitch-inner"></div>
-            <div class="flipswitch-switch"></div>
+        <div class="flipswitch flip" (click)="toggleSinGluten()">
+          <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="fs" #flip (click)="toggleSinGluten()">
+          <label class="flipswitch-label flip" for="fs">
+            <div class="flipswitch-inner flip"></div>
+            <div class="flipswitch-switch flip"></div>
           </label>
         </div>
-        <span class="gluten-text">{{texts_carta.botones[0]}}</span>
+        <span class="gluten-text flip" (click)="toggleSinGluten()">{{texts_carta.botones[0]}}</span>
       </div>
       <button id="inicio" class="boton" (click)="goToHome()">{{texts_carta.botones[1]}}</button>
       <button class="boton" id="reservar" (click)="goToReservas()">{{texts_carta.botones[2]}}</button>

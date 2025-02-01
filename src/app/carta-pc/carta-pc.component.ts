@@ -2,9 +2,8 @@
 
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
 import { TextsService } from "../texts.service";
-import { DeviceDetectorService } from "ngx-device-detector";
-import {delay} from "rxjs";
 
 type Secciones = 'ent' | 'seg' | 'piz' | 'car' | 'pos'
 
@@ -46,10 +45,10 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
   menuSectionsArray: { key: string, items: any[] }[] = [];
 
   constructor(
-    private deviceService: DeviceDetectorService,
     private router: Router,
     private textsService: TextsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private viewportScroller: ViewportScroller
   ) {}
 
   ngOnInit() {
@@ -113,7 +112,12 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
 
     if (!this.readRedirectCookie()) {
       this.changeSection('Ensaladas y Entrantes')
+      this.scrollToTop()
     }
+  }
+
+  scrollToTop() {
+    this.viewportScroller.scrollToPosition([0, 0]);
   }
 
   isPyBSection(key: string): boolean {
@@ -188,22 +192,29 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
 
   @ViewChild('marca') marca!: ElementRef;
   unselect() {
+
     if (this.current_element) {
       this.current_element.classList.remove('selected');
       if (this.marca_element) {
+          const image = this.current_element.children[0] as HTMLImageElement;
+          if (image) {
+            image.src = image.src.replace('.png', '6.png')
+          }
         this.current_element = this.marca_element;
       }
     }
-
     const all_elements = document.getElementsByClassName('menu');
     for (let i = 0; i < all_elements.length; i++) {
       all_elements[i].classList.add('hidden');
     }
   }
 
+  @ViewChild('flip') flip!: ElementRef;
   currently_sin_gluten: boolean = false
   toggleSinGluten() {
     this.currently_sin_gluten = !this.currently_sin_gluten;
+    this.flip.nativeElement.checked = !this.flip.nativeElement.checked
+
     this.texts_carta = this.currently_sin_gluten
       ? this.textsService.getTextsCartaSg()
       : this.textsService.getTextsCarta();

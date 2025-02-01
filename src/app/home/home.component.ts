@@ -11,7 +11,7 @@ import {
   AbstractControl,
   ValidationErrors
 } from '@angular/forms';
-import {Subscription} from "rxjs";
+import { HttpClient } from '@angular/common/http';
 
 type LanguageCode = 'ES' | 'FR' | 'DE' | 'EN' | 'IT';
 
@@ -87,7 +87,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   texts_home: LanguageTextHome = this.textsService.getTextsHome()
 
-  constructor(private deviceService: DeviceDetectorService, private router: Router, private textsService: TextsService, private fb: FormBuilder) {
+  constructor(
+    private deviceService: DeviceDetectorService,
+    private router: Router,
+    private textsService: TextsService,
+    private fb: FormBuilder,
+    private http: HttpClient
+  ) {
     this.formulario_reservas = this.fb.group({
       nombre: ['', [Validators.required, Validators.pattern('[a-zA-ZáéíóúçÁÉÍÓÚÇ ]{3,40}')]],
       tel: ['', [Validators.required, Validators.pattern('[6-7,9]{1}[0-9]{8}')]],
@@ -187,10 +193,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   enviarReserva(): void {
-    console.log('Form submitted:', this.formulario_reservas.value);
     console.log(this.formulario_reservas.valid);
     this.reserva_intentada = true;
     console.log(this.reserva_intentada);
+    this.http.post('http://lafarfalla.es/api/reservas', this.formulario_reservas).subscribe({
+      next: (res) => console.log('Reserva creada:', res),
+      error: (err) => console.error('Error:', err)
+    });
   }
 
   @ViewChild('checkbox') checkbox: ElementRef | undefined;
