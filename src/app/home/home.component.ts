@@ -87,7 +87,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   hora_min: string = '13:00';
   hora_max: string = '01:00';
 
-  reserva_url: string = 'http://172.23.230.96:5000/api/reservas';
+  reserva_url: string = 'https://lafarfalla.es/api/reservas';
 
   texts_home: LanguageTextHome = this.textsService.getTextsHome()
 
