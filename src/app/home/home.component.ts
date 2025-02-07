@@ -27,6 +27,7 @@ interface LanguageTextHome {
 
 function todayDate(): string {
   const today = new Date();
+  today.setDate(today.getDate() + 1);
   return today.toISOString().split('T')[0];
 }
 
@@ -86,6 +87,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   hora_min: string = '13:00';
   hora_max: string = '01:00';
 
+  reserva_url: string = 'http://172.23.230.96:5000/api/reservas';
+
   texts_home: LanguageTextHome = this.textsService.getTextsHome()
 
   constructor(
@@ -98,6 +101,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.formulario_reservas = this.fb.group({
       nombre: ['', [Validators.required, Validators.pattern('[a-zA-ZáéíóúçÁÉÍÓÚÇ ]{3,40}')]],
       tel: ['', [Validators.required, Validators.pattern('[6-7,9]{1}[0-9]{8}')]],
+      email: ['', [Validators.required, Validators.email]],
       fecha: ['', Validators.required],
       hora: ['', Validators.required],
       personas: [1, [Validators.required, Validators.min(1), Validators.max(12)]],
@@ -140,6 +144,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
       document.cookie = "redirect=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
       this.goToReservas();
     }
+
+    this.restoreFormData();
   }
 
   @ViewChild('header') header: ElementRef | undefined;
@@ -197,7 +203,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     console.log(this.formulario_reservas.valid);
     this.reserva_intentada = true;
     console.log(this.reserva_intentada);
-    this.http.post('http://lafarfalla.es/api/reservas', this.formulario_reservas).subscribe({
+
+    let form_value = { ... this.formulario_reservas.value };
+    this.http.post(this.reserva_url, form_value).subscribe({
       next: (res) => console.log('Reserva creada:', res),
       error: (err) => console.error('Error:', err)
     });
@@ -218,7 +226,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       const formDataString = JSON.stringify(formData);
 
       document.cookie = `formData=${formDataString}; path=/; max-age=1800;`; // 30 minutos
-
+      console.log(document.cookie);
       this.router.navigate(['/privacy']);
     }
   }

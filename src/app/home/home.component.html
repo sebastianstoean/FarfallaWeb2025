@@ -87,6 +87,10 @@
           <label for="formulario-telefono" class="label-formulario">{{ texts_home.formulario[1] }}:</label>
           <input class="input-formulario" type="tel" formControlName="tel" id="formulario-telefono" placeholder="ej: 606505404" maxlength="9">
 
+          <!-- Email -->
+          <label for="formulario-email" class="label-formulario">Email:</label>
+          <input class="input-formulario" type="text" formControlName="email" id="formulario-email" placeholder="ej: example@example.com">
+
           <!-- Fecha -->
           <label for="formulario-fecha" class="label-formulario">{{ texts_home.formulario[2] }}:</label>
           <input formControlName="fecha" class="input-formulario" type="date" id="formulario-fecha" (change)="cambiarHorasConstraints()" [value]="fecha_hoy" [min]="fecha_hoy" [max]="fin_de_anno">
@@ -119,17 +123,21 @@
             <span *ngIf="formulario_reservas.get('tel')?.hasError('required')">*{{ texts_home.errores[2] }}</span>
             <span *ngIf="formulario_reservas.get('tel')?.hasError('pattern')">*{{ texts_home.errores[3] }}</span>
           </div>
+          <div *ngIf="(formulario_reservas.get('email')?.touched || reserva_intentada) && formulario_reservas.get('email')?.invalid">
+            <span *ngIf="formulario_reservas.get('email')?.hasError('required')">*{{ texts_home.errores[4] }}</span>
+            <span *ngIf="formulario_reservas.get('email')?.hasError('pattern')">*{{ texts_home.errores[5] }}</span>
+          </div>
           <div *ngIf="(formulario_reservas.get('fecha')?.touched || reserva_intentada) && formulario_reservas.get('fecha')?.invalid">
-            <span *ngIf="formulario_reservas.get('fecha')?.hasError('required')">*{{ texts_home.errores[4] }}</span>
+            <span *ngIf="formulario_reservas.get('fecha')?.hasError('required')">*{{ texts_home.errores[6] }}</span>
           </div>
           <div *ngIf="(formulario_reservas.get('hora')?.touched || reserva_intentada) && formulario_reservas.get('hora')?.invalid">
-            <span *ngIf="formulario_reservas.get('hora')?.hasError('required')">*{{ texts_home.errores[5] }}</span>
-            <span *ngIf="formulario_reservas.get('hora')?.hasError('invalidTime')">*{{ texts_home.errores[6] }} {{ hora_min }} {{ texts_home.errores[7] }} {{ hora_max }}</span>
+            <span *ngIf="formulario_reservas.get('hora')?.hasError('required')">*{{ texts_home.errores[7] }}</span>
+            <span *ngIf="formulario_reservas.get('hora')?.hasError('invalidTime')">*{{ texts_home.errores[8] }} {{ hora_min }} {{ texts_home.errores[9] }} {{ hora_max }}</span>
           </div>
           <div *ngIf="(formulario_reservas.get('personas')?.touched || reserva_intentada) && formulario_reservas.get('personas')?.invalid">
-            <span *ngIf="formulario_reservas.get('personas')?.hasError('required')">*{{ texts_home.errores[8] }}</span>
-            <span *ngIf="formulario_reservas.get('personas')?.hasError('min')">*{{ texts_home.errores[9] }}</span>
-            <span *ngIf="formulario_reservas.get('personas')?.hasError('max')">*{{ texts_home.errores[10] }}</span>
+            <span *ngIf="formulario_reservas.get('personas')?.hasError('required')">*{{ texts_home.errores[10] }}</span>
+            <span *ngIf="formulario_reservas.get('personas')?.hasError('min')">*{{ texts_home.errores[11] }}</span>
+            <span *ngIf="formulario_reservas.get('personas')?.hasError('max')">*{{ texts_home.errores[12] }}</span>
           </div>
           <div *ngIf="reserva_intentada && formulario_reservas.get('politica')?.invalid">
             <span>*{{ texts_home.errores[11] }}</span>
