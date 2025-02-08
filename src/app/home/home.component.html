@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" #html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +9,7 @@
 
 <header #header></header>
 <section id="inicio">
-  <img src="../../assets/images/inicio.png" alt="" id="fondo-inicio" #fondo>
+  <img src="../../assets/images/inicio.png" [alt]="texts_home.alts[0]" id="fondo-inicio" #fondo>
   <h1 id="titulo-principal" class="titulo-principal">
     Il Piccolino della Farfalla
   </h1>
@@ -25,7 +25,7 @@
     </button>
   </div>
   <div id="cont-flecha">
-    <img src="../assets/icons/flecha_bajada_w.png" alt="" id="flecha-bajada">
+    <img src="../assets/icons/flecha_bajada_w.png" [alt]="texts_home.alts[1]" id="flecha-bajada">
   </div>
 </section>
 
@@ -33,13 +33,13 @@
   <h2 id="titulo-bienvenida">{{ texts_home.titulos[1] }}</h2>
   <h3 id="titulo-bienvenida2">{{ texts_home.titulos[2] }}</h3>
   <p id="texto-bienvenida">{{ texts_home.textos[0] }}</p>
-  <img src="../assets/images/foto_bienvenida.jpg" alt="" id="imagen-bienvenida" class="imagen-texto">
+  <img src="../assets/images/foto_bienvenida.jpg" [alt]="texts_home.alts[2]" id="imagen-bienvenida" class="imagen-texto">
 </section>
 
 <section #aMedida id="a-medida" class="secciones-texto">
   <h2 id="titulo-a-medida">{{ texts_home.titulos[3] }}</h2>
   <p id="texto-a-medida" [innerHTML]="texts_home.textos[1]"></p>
-  <img src="../assets/images/foto_a_medida.jpg" alt="" id="imagen-a-medida" class="imagen-texto">
+  <img src="../assets/images/foto_a_medida.jpg" [alt]="texts_home.alts[3]" id="imagen-a-medida" class="imagen-texto">
 </section>
 
 <section #carta id="carta">
@@ -51,7 +51,7 @@
          (click)="goToCartaWithSelection(i)"
     >
       <img [src]="'../assets/icons/icono' + (i + 1) + '.png'"
-           alt=""
+           [alt]="texts_home.alts[4] + item"
            class="icono-carta"
            [id]="'icono' + (i + 1) + '-carta'">
       <div class="contenedor-boton-carta">
@@ -70,9 +70,9 @@
       <div id="horario">
         <div id="contenedor-texto-horario">
           <h3 id="titulo-horario">{{ texts_home.titulos[6] }}</h3>
-          <p id="texto1-horario" [innerHTML]="texts_home.horario[0]"></p>
-          <p id="texto2-horario" [innerHTML]="texts_home.horario[1]"></p>
-          <p id="texto3-horario" [innerHTML]="texts_home.horario[2]"></p>
+          <h4 id="texto1-horario" [innerHTML]="texts_home.horario[0]"></h4>
+          <h4 id="texto2-horario" [innerHTML]="texts_home.horario[1]"></h4>
+          <h4 id="texto3-horario" [innerHTML]="texts_home.horario[2]"></h4>
           <p id="texto5-horario" [innerHTML]="texts_home.horario[3]"></p>
         </div>
       </div>

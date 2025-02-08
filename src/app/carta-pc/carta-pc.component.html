@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es" #html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,11 +9,11 @@
 <!-- carta-pc.component.html -->
 <header #header>
   <div id="contenedor-header">
-    <h1 id="marca" #marca>Il Piccolino della Farfalla</h1>
+    <h1 id="marca" #marca (click)="goToHome()">Il Piccolino della Farfalla</h1>
     <div id="botones-seccion">
       <div class="flipswitch-container">
-        <div class="flipswitch flip" (click)="toggleSinGluten()">
-          <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="fs" #flip (click)="toggleSinGluten()">
+        <div class="flipswitch flip">
+          <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="fs" #flip (change)="toggleSinGluten()">
           <label class="flipswitch-label flip" for="fs">
             <div class="flipswitch-inner flip"></div>
             <div class="flipswitch-switch flip"></div>
@@ -46,7 +46,7 @@
           <ul class="lista-platos">
             <li *ngFor="let plato of item.texto; let i = index" class="plato-menu">
               {{ plato }} <br>
-              <p class="precio-plato" *ngIf="!isSalsas(item.titulo)">{{ item.precio[i] }}€</p>
+              <p class="precio-plato" *ngIf="!isSalsas(item.precio[i])">{{ item.precio[i] }}€</p>
             </li>
           </ul>
         </div>

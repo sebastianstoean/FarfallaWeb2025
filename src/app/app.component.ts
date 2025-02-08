@@ -3,7 +3,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { Router } from '@angular/router';
 import { TextsService } from "./texts.service";
 
-type LanguageCode = 'ES' | 'FR' | 'DE' | 'EN' | 'IT';
+type LanguageCode = 'ES' | 'FR' | 'DE' | 'EN' | 'IT' | 'ZH'
 
 @Component({
     selector: 'app-root',
@@ -32,6 +32,15 @@ export class AppComponent implements OnInit, AfterViewInit {
       let highlight = highlights[i] as HTMLElement;
       highlight.style.color = '#005C92';
       highlight.style.fontWeight = 'bold';
+    }
+
+    if (!localStorage.getItem('cookiesAccepted')) {
+      if (this.cookie_banner) {
+        this.cookie_banner.nativeElement.style.display = 'flex';
+      }
+      if (this.cookie_overlay) {
+        this.cookie_overlay.nativeElement.style.display = 'block';
+      }
     }
   }
 
@@ -70,6 +79,32 @@ export class AppComponent implements OnInit, AfterViewInit {
       !this.cambio_idioma_popup.nativeElement.contains(event.target)) {
       this.closeLanguageChanger();
     }
+  }
+
+  @ViewChild('cookieOverlay') cookie_overlay: ElementRef | undefined;
+  @ViewChild('cookieBanner') cookie_banner: ElementRef | undefined;
+  acceptCookies() {
+    if (this.cookie_banner) {
+      if (this.cookie_overlay) {
+        this.cookie_overlay.nativeElement.style.display = 'none';
+      }
+      this.cookie_banner.nativeElement.style.display = 'none';
+      localStorage.setItem('cookiesAccepted', 'true');
+    }
+  }
+
+  rejectCookies() {
+    if (this.cookie_banner) {
+      if (this.cookie_overlay) {
+        this.cookie_overlay.nativeElement.style.display = 'none';
+      }
+      this.cookie_banner.nativeElement.style.display = 'none';
+      localStorage.setItem('cookiesAccepted', 'false');
+    }
+  }
+
+  goToHome() {
+    this.router.navigate(['home']);
   }
 }
 

@@ -1,6 +1,6 @@
 $primary-color: #2E4756;  // Azul fondo
 $secondary-color: #ECFEAA;  // Amarillo
-$accent-color: #00A896;  // Azul botones
+$accent-color: #006B5F ;  // Azul botones
 $final-color: #7E998A;  // Azul footer
 $button-hover-color: #e5ff7c;
 $titulo-azul-color: #287DAF;
@@ -67,7 +67,7 @@ section, #contenido-venir {
   height: 100%;
   z-index: -1;
   text-align: center;
-  filter: brightness(70%);
+  filter: brightness(60%);
 }
 
 .titulo-principal {
@@ -371,15 +371,16 @@ section, #contenido-venir {
   font-size: 36px;
 }
 
-#horario p {
+#horario h4 {
   font-size: 24px;
   margin-bottom: 20px;
   text-align: center;
 }
 
 #texto5-horario {
-  font-size: 18px !important;
+  font-size: 18px;
   width: 75%;
+  text-align: center;
   margin: 50px auto auto auto;
 }
 
@@ -592,6 +593,10 @@ section, #contenido-venir {
 
 
 @media (max-width: 460px){
+  #fondo-inicio {
+    filter: brightness(45%);
+  }
+
   #cont-idioma {
     right: 50px;
   }
@@ -605,6 +610,7 @@ section, #contenido-venir {
     text-align: center;
     align-self: center;
     width: 100%;
+    margin-bottom: 20px;
   }
 
   #titulo-bienvenida2 {

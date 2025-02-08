@@ -13,7 +13,7 @@ import {
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-type LanguageCode = 'ES' | 'FR' | 'DE' | 'EN' | 'IT';
+type LanguageCode = 'ES' | 'FR' | 'DE' | 'EN' | 'IT' | 'ZH';
 
 interface LanguageTextHome {
   botones: string[];
@@ -23,6 +23,7 @@ interface LanguageTextHome {
   formulario: string[];
   horario: string[];
   errores: string[];
+  alts: string[];
 }
 
 function todayDate(): string {
@@ -109,6 +110,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
+  @ViewChild('html') html: ElementRef | undefined;
   ngOnInit() {
     this.is_mobile = this.deviceService.isMobile();
     if (!this.is_mobile) {
@@ -119,6 +121,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     this.textsService.currentLanguage$.subscribe(new_lang => {
       this.language = new_lang;
+      if (this.html) {
+        if (new_lang === 'ZH') {
+          this.html.nativeElement.lang = 'zh-CN';
+        } else {
+          this.html.nativeElement.lang = new_lang.toLowerCase();
+        }
+      }
       this.texts_home= this.textsService.getTextsHome();
     });
   }
@@ -138,14 +147,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
       highlight.style.fontWeight = 'bold';
     }
 
-    const cookies = document.cookie.split(';');
-    const redirectCookie = cookies.find(cookie => cookie.trim().startsWith('redirect='));
-    if (redirectCookie) {
-      document.cookie = "redirect=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      this.goToReservas();
-    }
+    if (localStorage.getItem('cookiesAccepted') === 'true') {
 
-    this.restoreFormData();
+      const cookies = document.cookie.split(';');
+      const redirectCookie = cookies.find(cookie => cookie.trim().startsWith('redirect='));
+      if (redirectCookie) {
+        document.cookie = "redirect=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        this.goToReservas();
+      }
+
+      this.restoreFormData();
+    }
   }
 
   @ViewChild('header') header: ElementRef | undefined;
@@ -181,10 +193,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const fecha_elegida = this.formulario_reservas.get('fecha')?.value;
     const dia = new Date(fecha_elegida).getDay();
 
-    if (dia === 0) {
-      this.hora_min = '13:00';
-      this.hora_max = '15:45';
-    } else if (dia >= 1 && dia <= 4) {
+    if (dia <= 4) {
       this.hora_min = '13:00';
       this.hora_max = '00:45';
     } else {
@@ -206,7 +215,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     let form_value = { ... this.formulario_reservas.value };
     this.http.post(this.reserva_url, form_value).subscribe({
-      next: (res) => console.log('Reserva creada:', res),
+      next: (res) => {
+        console.log('Reserva creada:', res)
+        alert(`Reserva creada con éxito para el ${form_value.fecha} a las ${form_value.hora} para ${form_value.personas} personas`);
+      },
       error: (err) => console.error('Error:', err)
     });
   }
@@ -219,14 +231,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
     if (!this.checkbox?.nativeElement.contains(event.target) &&
       !this.checkbox_control?.nativeElement.contains(event.target) &&
       this.checkbox_label?.nativeElement.contains(event.target)) {
-      console.log("read policy");
+      if (localStorage.getItem('cookiesAccepted') === 'true') {
+        this.formulario_reservas.get('politica')?.setValue(true);
 
-      // Guardar los valores del form en una cookie
-      const formData = this.formulario_reservas.value;
-      const formDataString = JSON.stringify(formData);
+        const formData = this.formulario_reservas.value;
+        const formDataString = JSON.stringify(formData);
 
-      document.cookie = `formData=${formDataString}; path=/; max-age=1800;`; // 30 minutos
-      console.log(document.cookie);
+        document.cookie = `formData=${formDataString}; path=/; max-age=1800;`;
+        console.log(document.cookie);
+      }
       this.router.navigate(['/privacy']);
     }
   }

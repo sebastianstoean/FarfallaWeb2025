@@ -6,6 +6,7 @@ import { ViewportScroller } from '@angular/common';
 import { TextsService } from "../texts.service";
 
 type Secciones = 'ent' | 'seg' | 'piz' | 'car' | 'pos'
+type LanguageCode = 'ES' | 'FR' | 'DE' | 'EN' | 'IT' | 'ZH';
 
 interface MenuItem {
   titulo: string;
@@ -44,6 +45,8 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
   marca_element: Element | null = null;
 
   menuSectionsArray: { key: string, items: any[] }[] = [];
+  private language: LanguageCode = "ES";
+  currently_sin_gluten: boolean = false
 
   constructor(
     private router: Router,
@@ -52,11 +55,20 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
     private viewportScroller: ViewportScroller
   ) {}
 
+  @ViewChild('html') html: ElementRef | undefined;
   ngOnInit() {
     this.textsService.currentLanguage$.subscribe(new_lang => {
-      this.texts_carta = this.textsService.getTextsCarta();
+      this.language = new_lang;
+      this.currently_sin_gluten ? this.textsService.getTextsCartaSg() : this.textsService.getTextsCarta();
+
+      if (this.html) {
+        if (new_lang === 'ZH') {
+          this.html.nativeElement.lang = 'zh-CN';
+        } else {
+          this.html.nativeElement.lang = new_lang.toLowerCase();
+        }
+      }
     });
-    this.processMenuSections()
   }
 
   private processMenuSections() {
@@ -125,8 +137,8 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
     return key === 'PyB';
   }
 
-  isSalsas(titulo: any) {
-    if (titulo == 'Salsa para Pastas') {
+  isSalsas(precio: any) {
+    if (precio == '0') {
      return true
     }
     return false
@@ -211,14 +223,15 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
   }
 
   @ViewChild('flip') flip!: ElementRef;
-  currently_sin_gluten: boolean = false
   toggleSinGluten() {
     this.currently_sin_gluten = !this.currently_sin_gluten;
-    this.flip.nativeElement.checked = !this.flip.nativeElement.checked
+
+    this.flip.nativeElement.checked = this.currently_sin_gluten;
 
     this.texts_carta = this.currently_sin_gluten
       ? this.textsService.getTextsCartaSg()
       : this.textsService.getTextsCarta();
+
     const current_element = this.current_element.classList[1]
     this.processMenuSections()
     this.cdr.detectChanges();
@@ -231,7 +244,9 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
   }
 
   goToReservas() {
-    document.cookie = "redirect=reservas; max-age=20";
+    if (localStorage.getItem('cookiesAccepted') === 'true') {
+      document.cookie = "redirect=reservas; max-age=20";
+    }
     this.goToHome()
   }
 

@@ -30,7 +30,7 @@ header {
   flex-direction: row;
   position: fixed;
   top: 0;
-  z-index: 999;
+  z-index: 1000;
   background: none
 }
 
@@ -39,6 +39,8 @@ header {
   position: absolute;
   top: 5px;
   left: 20px;
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 #cont-idioma {
@@ -72,6 +74,10 @@ header {
   margin: 0;
 }
 
+#chino {
+  font-size: 20px !important;
+}
+
 footer {
   background-color: $final-color;
   display: flex;
@@ -100,7 +106,7 @@ footer p {
 #cambio-idioma {
   display: flex;
   width: 100px;
-  height: 175px;
+  height: 190px;
   flex-direction: column;
   position: fixed;
   top: 5px;
@@ -118,7 +124,7 @@ footer p {
   transition: opacity 0.5s ease, transform 0.3s ease;
 }
 
-#cambio-idioma p {
+#cambio-idioma h3 {
   color: black;
   font-size: 30px;
   text-align: center;
@@ -129,6 +135,7 @@ footer p {
   display: flex;
   flex-direction: row;
   padding: 0px 10px;
+  height: 35px;
   align-items: center;
   justify-content: center;
 }
