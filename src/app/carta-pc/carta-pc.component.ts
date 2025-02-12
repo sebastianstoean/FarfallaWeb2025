@@ -42,6 +42,7 @@ interface LanguageTextCarta {
 export class CartaPcComponent implements OnInit, AfterViewInit {
   texts_carta: LanguageTextCarta = this.textsService.getTextsCarta();
   current_element!: Element;
+  current_index: number = 0;
   marca_element: Element | null = null;
 
   menuSectionsArray: { key: string, items: any[] }[] = [];
@@ -57,9 +58,13 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
 
   @ViewChild('html') html: ElementRef | undefined;
   ngOnInit() {
+    this.texts_carta = this.textsService.getTextsCarta();
+    this.processMenuSections();
+
     this.textsService.currentLanguage$.subscribe(new_lang => {
       this.language = new_lang;
-      this.currently_sin_gluten ? this.textsService.getTextsCartaSg() : this.textsService.getTextsCarta();
+
+      this.currently_sin_gluten ? this.texts_carta = this.textsService.getTextsCartaSg() : this.texts_carta = this.textsService.getTextsCarta()
 
       if (this.html) {
         if (new_lang === 'ZH') {
@@ -68,6 +73,9 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
           this.html.nativeElement.lang = new_lang.toLowerCase();
         }
       }
+      this.processMenuSections();
+      this.cdr.detectChanges();
+      this.changeSection(this.current_index);
     });
   }
 
@@ -84,24 +92,10 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
       const [key, value] = cookie.trim().split('=');
 
       if (key === 'redirectCarta') {
-        switch (value){
-          case '0':
-            this.changeSection('ensaladas y entrantes')
-            break;
-          case '1':
-            this.changeSection('segundos platos')
-            break;
-          case '2':
-            this.changeSection('pizzas')
-            break;
-          case '3':
-            this.changeSection('carnes')
-            break;
-          case '4':
-            this.changeSection('postres y bebidas')
-            break;
+        if (Number(value) >= 0 && Number(value) < 5) {
+          this.changeSection(Number(value));
+          return true;
         }
-        return true;
       }
     }
     return false;
@@ -123,8 +117,10 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
     const marca = document.getElementById('marca')!;
     this.marca_element = marca
 
-    if (!this.readRedirectCookie()) {
-      this.changeSection('Ensaladas y Entrantes')
+    if (!(localStorage.getItem('cookiesAccepted') === 'true') || !this.readRedirectCookie()) {
+      this.changeSection(0)
+      this.scrollToTop()
+    } else {
       this.scrollToTop()
     }
   }
@@ -144,31 +140,17 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
     return false
   }
 
-  changeSection(titulo: string) {
-    if (this.current_element && this.current_element.textContent?.includes(titulo)) {
+  changeSection(index: number) {
+    const classes = ['menu-eye', 'menu-s', 'menu-p', 'menu-c', 'menu-pyb'];
+    const section_classes = ['ent', 'seg', 'piz', 'car', 'pos'];
+
+    const section_class = section_classes[index];
+    const section_class_plus = classes[index];
+    if (this.current_element && this.current_element.textContent?.includes(section_class)) {
       this.unselect();
       return;
     }
 
-    const section_class = titulo.slice(0, 3).toLowerCase();
-    let section_class_plus!: string
-    switch (section_class) {
-      case "ens":
-        section_class_plus = 'menu-eye';
-        break;
-      case "seg":
-        section_class_plus = 'menu-s';
-        break;
-      case "piz":
-        section_class_plus = 'menu-p';
-        break;
-      case "car":
-        section_class_plus = 'menu-c';
-        break;
-      case "pos":
-        section_class_plus = 'menu-pyb';
-        break;
-    }
     if (this.current_element) {
       const old_image = this.current_element.children[0] as HTMLImageElement;
       if (old_image) {
@@ -184,7 +166,9 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
         image.src = image.src.replace('6', '')
       }
       new_element.classList.add('selected');
+
       this.current_element = new_element;
+      this.current_index = index;
     }
 
     const all_elements = document.getElementsByClassName('menu')
@@ -199,8 +183,9 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getClassName(titulo: string) {
-    return titulo.slice(0,3).toLowerCase();
+  getClassName(index: number) {
+    const classes = ['ent', 'seg', 'piz', 'car', 'pos'];
+    return classes[index];
   }
 
   @ViewChild('marca') marca!: ElementRef;
@@ -233,10 +218,12 @@ export class CartaPcComponent implements OnInit, AfterViewInit {
       : this.textsService.getTextsCarta();
 
     const current_element = this.current_element.classList[1]
+    const classes = ['ent', 'seg', 'piz', 'car', 'pos'];
+    const current_index = classes.indexOf(current_element);
     this.processMenuSections()
     this.cdr.detectChanges();
-    this.changeSection(current_element);
-    this.changeSection(current_element);
+    this.changeSection(current_index);
+    this.changeSection(current_index);
   }
 
   goToHome() {

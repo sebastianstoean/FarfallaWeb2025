@@ -209,9 +209,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   enviarReserva(): void {
-    console.log(this.formulario_reservas.valid);
     this.reserva_intentada = true;
-    console.log(this.reserva_intentada);
+
+    if (this.formulario_reservas.invalid) {
+      console.log('Formulario inválido');
+      return;
+    }
 
     let form_value = { ... this.formulario_reservas.value };
     this.http.post(this.reserva_url, form_value).subscribe({
@@ -261,7 +264,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   goToCartaWithSelection(i: number) {
-    document.cookie = `redirectCarta=${i}; path=/`;
+    if (localStorage.getItem('cookiesAccepted') === 'true') {
+      document.cookie = `redirectCarta=${i}; path=/`;
+    }
     this.goToCarta()
   }
 

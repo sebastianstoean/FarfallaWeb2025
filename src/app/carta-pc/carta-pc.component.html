@@ -28,7 +28,7 @@
   <h2 id="titulo">{{texts_carta.titulo}}</h2>
   <div id="secciones">
     <div class="elemento-seccion" *ngFor="let titulo of texts_carta.titulos; let i = index"
-         (click)="changeSection(titulo)" [ngClass]="getClassName(titulo)">
+         (click)="changeSection(i)" [ngClass]="getClassName(i)">
       <img [src]="'../../assets/icons/icono' + (i + 1) + '6.png'" alt="" class="imagen-seccion">
       <p class="texto-seccion">{{titulo}}</p>
     </div>
