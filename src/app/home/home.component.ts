@@ -28,7 +28,7 @@ interface LanguageTextHome {
 
 function todayDate(): string {
   const today = new Date();
-  today.setDate(today.getDate() + 1);
+  today.setDate(today.getDate());
   return today.toISOString().split('T')[0];
 }
 
@@ -39,6 +39,27 @@ function endOfYearDate(): string {
   return endOfYear.toISOString().split('T')[0];
 }
 
+function timeStringToDate(timeString: string): Date {
+  const [hours, minutes] = timeString.split(':').map(Number);
+  const date = new Date();
+  date.setHours(hours, minutes, 0, 0);
+  return date;
+}
+
+function getCurrentSpanishTime(): Date {
+  const now = new Date();
+  const spainOffset = 1;
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  return new Date(utc + (3600000 * spainOffset));
+}
+
+function getMinTimeForToday(): string {
+  const now = getCurrentSpanishTime();
+  now.setMinutes(now.getMinutes() + 10);
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
+}
 function timeRangeValidator(minTime: string, maxTime: string) {
   return (control: AbstractControl): ValidationErrors | null => {
     const inputTime = control.value;
@@ -62,12 +83,7 @@ function timeRangeValidator(minTime: string, maxTime: string) {
     return null;
   };
 }
-function timeStringToDate(timeString: string): Date {
-  const [hours, minutes] = timeString.split(':').map(Number);
-  const date = new Date();
-  date.setHours(hours, minutes, 0, 0);
-  return date;
-}
+
 
 @Component({
     selector: 'app-home',
@@ -82,11 +98,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   reserva_intentada: boolean = false;
   formulario_reservas: FormGroup;
 
-  fecha_hoy: string = todayDate();
-  fin_de_anno: string = endOfYearDate();
-
   hora_min: string = '13:00';
   hora_max: string = '01:00';
+
+  fecha_hoy: string = todayDate();
+  fin_de_anno: string = endOfYearDate();
 
   reserva_url: string = 'https://lafarfalla.es/api/reservas';
 
@@ -103,8 +119,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
       nombre: ['', [Validators.required, Validators.pattern('[a-zA-ZáéíóúçÁÉÍÓÚÇ ]{3,40}')]],
       tel: ['', [Validators.required, Validators.pattern('[6-7,9]{1}[0-9]{8}')]],
       email: ['', [Validators.required, Validators.email]],
-      fecha: ['', Validators.required],
-      hora: ['', Validators.required],
+      fecha: ['', [Validators.required]],
+      hora: ['', [
+        Validators.required,
+        timeRangeValidator(this.hora_min, this.hora_max)
+      ]],
       personas: [1, [Validators.required, Validators.min(1), Validators.max(12)]],
       politica: [false, Validators.requiredTrue],
     });
@@ -168,7 +187,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     if (this.a_medida && this.carta) {
       const rect = this.a_medida.nativeElement.getBoundingClientRect();
       const rect2 = this.carta.nativeElement.getBoundingClientRect();
-      // Si la parte superior de #section1 está fuera de la pantalla
+
       if (rect.top <= 50) {
         if (this.header) {
           this.header.nativeElement.style.opacity = '1';
@@ -193,19 +212,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const fecha_elegida = this.formulario_reservas.get('fecha')?.value;
     const dia = new Date(fecha_elegida).getDay();
 
-    if (dia <= 4) {
-      this.hora_min = '13:00';
-      this.hora_max = '00:45';
+    const today = new Date().toISOString().split('T')[0];
+    if (fecha_elegida === today) {
+      this.hora_min = getMinTimeForToday();
     } else {
       this.hora_min = '13:00';
+    }
+
+    if (dia <= 4) {
+      this.hora_max = '00:45';
+    } else {
       this.hora_max = '01:15';
     }
 
     console.log(this.hora_min, this.hora_max, dia, fecha_elegida);
     this.formulario_reservas.get('hora')?.setValidators([
       Validators.required,
-      timeRangeValidator(this.hora_min, this.hora_max)  // Usa el validador de rango de tiempo
+      timeRangeValidator(this.hora_min, this.hora_max)
     ]);
+
+    this.formulario_reservas.get('hora')?.updateValueAndValidity();
   }
 
   enviarReserva(): void {

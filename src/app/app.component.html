@@ -13,29 +13,29 @@
 
 <div class="popup" id="cambio-idioma" #cambioIdioma>
   <span class="boton-cerrar" (click)="closeLanguageChanger()">x</span>
-    <div class="idioma">
-      <h3 (click)="changeLanguage('ES')" [class.disabled]="language === 'ES'">ES</h3>
-      <img class="lang-image" src="./assets/icons/spain.png" alt="bandera española">
+    <div class="idioma"(click)="changeLanguage('ES')">
+      <h3 class="tipo-idioma" [class.disabled]="language === 'ES'">ES</h3>
+      <img class="lang-image" src="./assets/icons/spain.png" alt="bandera española" [class.disabled]="language === 'ES'">
     </div>
-    <div class="idioma">
-      <h3 (click)="changeLanguage('EN')" [class.disabled]="language === 'EN'">EN</h3>
-      <img class="lang-image" src="./assets/icons/united-kingdom.png" alt="bandera inglesa">
+    <div class="idioma" (click)="changeLanguage('EN')">
+      <h3 class="tipo-idioma" [class.disabled]="language === 'EN'">EN</h3>
+      <img class="lang-image" src="./assets/icons/united-kingdom.png" alt="bandera inglesa" [class.disabled]="language === 'EN'">
     </div>
-    <div class="idioma">
-      <h3 (click)="changeLanguage('DE')" [class.disabled]="language === 'DE'">DE</h3>
-      <img class="lang-image" src="./assets/icons/germany.png" alt="bandera alemana">
+    <div class="idioma" (click)="changeLanguage('DE')">
+      <h3 class="tipo-idioma" [class.disabled]="language === 'DE'">DE</h3>
+      <img class="lang-image" src="./assets/icons/germany.png" alt="bandera alemana" [class.disabled]="language === 'DE'">
     </div>
-    <div class="idioma">
-      <h3 (click)="changeLanguage('IT')" [class.disabled]="language === 'IT'">IT</h3>
-      <img class="lang-image" src="./assets/icons/italy.png" alt="bandera italiana">
+    <div class="idioma" (click)="changeLanguage('IT')">
+      <h3 class="tipo-idioma" [class.disabled]="language === 'IT'">IT</h3>
+      <img class="lang-image" src="./assets/icons/italy.png" alt="bandera italiana" [class.disabled]="language === 'IT'">
     </div>
-    <div class="idioma">
-      <h3 (click)="changeLanguage('FR')" [class.disabled]="language === 'FR'">FR</h3>
-      <img class="lang-image" src="./assets/icons/france.png" alt="bandera francesa">
+    <div class="idioma" (click)="changeLanguage('FR')">
+      <h3 class="tipo-idioma" [class.disabled]="language === 'FR'">FR</h3>
+      <img class="lang-image" src="./assets/icons/france.png" alt="bandera francesa" [class.disabled]="language === 'FR'">
     </div>
-    <div class="idioma">
-      <h3 (click)="changeLanguage('ZH')" [class.disabled]="language === 'ZH'" id="chino">中文</h3>
-      <img class="lang-image" src="./assets/icons/china.png" alt="bandera china">
+    <div class="idioma" (click)="changeLanguage('ZH')">
+      <h3 class="tipo-idioma" [class.disabled]="language === 'ZH'" id="chino">中文</h3>
+      <img class="lang-image" src="./assets/icons/china.png" alt="bandera china" [class.disabled]="language === 'ZH'">
     </div>
 </div>
 
