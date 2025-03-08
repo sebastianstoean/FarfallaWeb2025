@@ -26,6 +26,25 @@ interface LanguageTextHome {
   alts: string[];
 }
 
+const festivos: string[] = [
+  '2025-01-01', // Año Nuevo
+  '2025-01-06', // Epifanía del Señor
+  '2025-04-17', // Jueves Santo
+  '2025-04-18', // Viernes Santo
+  '2025-05-01', // Fiesta del Trabajador
+  '2025-05-02', // Fiesta de la Comunidad de Madrid
+  '2025-07-25', // Santiago Apóstol
+  '2025-08-15', // Asunción de la Virgen
+  '2025-11-01', // Todos los Santos
+  '2025-12-06', // Día de la Constitución Española
+  '2025-12-08', // Día de la Inmaculada Concepción
+  '2025-12-25'  // Natividad del Señor
+];
+
+function esFestivo(date: string): boolean {
+  return festivos.includes(date);
+}
+
 function todayDate(): string {
   const today = new Date();
   today.setDate(today.getDate());
@@ -55,12 +74,13 @@ function getCurrentSpanishTime(): Date {
 
 function getMinTimeForToday(): string {
   const now = getCurrentSpanishTime();
-  now.setMinutes(now.getMinutes() + 10);
+  now.setMinutes(now.getMinutes() + 60);
   const hours = now.getHours().toString().padStart(2, '0');
   const minutes = now.getMinutes().toString().padStart(2, '0');
   return `${hours}:${minutes}`;
 }
-function timeRangeValidator(minTime: string, maxTime: string) {
+function timeRangeValidator(minTime: string, maxTime: string, selectedDate: string = '') {
+  console.log('Validando rango de horas:', minTime, maxTime, selectedDate);
   return (control: AbstractControl): ValidationErrors | null => {
     const inputTime = control.value;
 
@@ -68,22 +88,47 @@ function timeRangeValidator(minTime: string, maxTime: string) {
       return null;
     }
 
-    const minDate = timeStringToDate(minTime);
-    const maxDate = timeStringToDate(maxTime);
-    const inputDate = timeStringToDate(inputTime);
+    const convertToMinutes = (time: string): number => {
+      const [hours, minutes] = time.split(':').map(Number);
+      return hours * 60 + minutes;
+    };
 
-    if (minDate > maxDate) {
-      maxDate.setDate(maxDate.getDate() + 1);
+    const minMinutes = convertToMinutes(minTime);
+    const maxMinutes = convertToMinutes(maxTime);
+    const inputMinutes = convertToMinutes(inputTime);
+
+    let isValid = false;
+
+    if (maxMinutes < minMinutes) {
+      isValid = (inputMinutes >= minMinutes) || (inputMinutes <= maxMinutes);
+    } else {
+      isValid = inputMinutes >= minMinutes && inputMinutes <= maxMinutes;
     }
 
-    if (inputDate < minDate || inputDate > maxDate) {
+    if (selectedDate) {
+      const date = new Date(selectedDate);
+      const dayOfWeek = date.getDay();
+      const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+      console.log('Es fin de semana:', isWeekend);
+
+      if (esFestivo(selectedDate) || isWeekend) {
+        console.log('Es festivo o fin de semana');
+        const restrictedStartMinutes = convertToMinutes('14:01');
+        const restrictedEndMinutes = convertToMinutes('15:29');
+
+        if (inputMinutes >= restrictedStartMinutes && inputMinutes <= restrictedEndMinutes) {
+          return { intentoReservaHoraFestivo: true };
+        }
+      }
+    }
+
+    if (!isValid) {
       return { invalidTime: true };
     }
 
     return null;
   };
 }
-
 
 @Component({
     selector: 'app-home',
@@ -99,7 +144,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   formulario_reservas: FormGroup;
 
   hora_min: string = '13:00';
-  hora_max: string = '01:00';
+  hora_max: string = '24:59';
 
   fecha_hoy: string = todayDate();
   fin_de_anno: string = endOfYearDate();
@@ -122,7 +167,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       fecha: ['', [Validators.required]],
       hora: ['', [
         Validators.required,
-        timeRangeValidator(this.hora_min, this.hora_max)
+        timeRangeValidator(this.hora_min, this.hora_max, '')
       ]],
       personas: [1, [Validators.required, Validators.min(1), Validators.max(12)]],
       politica: [false, Validators.requiredTrue],
@@ -220,7 +265,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
 
     if (dia <= 4) {
-      this.hora_max = '00:45';
+      this.hora_max = '24:45';
     } else {
       this.hora_max = '01:15';
     }
@@ -228,7 +273,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     console.log(this.hora_min, this.hora_max, dia, fecha_elegida);
     this.formulario_reservas.get('hora')?.setValidators([
       Validators.required,
-      timeRangeValidator(this.hora_min, this.hora_max)
+      timeRangeValidator(this.hora_min, this.hora_max, fecha_elegida)
     ]);
 
     this.formulario_reservas.get('hora')?.updateValueAndValidity();
@@ -278,10 +323,21 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const formDataCookie = cookies.find(cookie => cookie.startsWith('formData='));
 
     if (formDataCookie) {
+      this.reserva_intentada = true;
+
       const formDataString = formDataCookie.split('=')[1];
       const formData = JSON.parse(formDataString);
 
       this.formulario_reservas.patchValue(formData);
+
+      const fecha_elegida = formData.fecha;
+
+      this.formulario_reservas.get('hora')?.setValidators([
+        Validators.required,
+        timeRangeValidator(this.hora_min, this.hora_max, fecha_elegida)
+      ]);
+
+      this.formulario_reservas.get('hora')?.updateValueAndValidity();
     }
   }
 
